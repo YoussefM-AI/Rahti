@@ -5,7 +5,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Données locales (À ignorer si vous voulez garder les tests privés)
-# users.json
+users.json
 
 # Fichiers système
 .DS_Store

@@ -1,12 +1,39 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
-const fs = require("fs-extra");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
+const mongoose = require("mongoose");
 
 const app = express();
-const USERS_FILE = path.join(__dirname, "users.json");
 const ADMIN_SECRET = "rahti2026"; // Secret code for admin registration
+
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://Rahti:rahti2026@cluster0.vz1u9w3.mongodb.net/?appName=Cluster0";
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.error('Could not connect to MongoDB:', err));
+
+// User Schema
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, default: 'user' },
+  age: Number,
+  sexe: String,
+  hopital: String,
+  service: String,
+  experience: Number,
+  tests: [{
+    score: Number,
+    category: String,
+    date: { type: Date, default: Date.now }
+  }],
+  createdAt: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('User', userSchema);
 
 // Middleware
 app.use(express.static(__dirname));
@@ -15,21 +42,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 app.use(session({
-  secret: 'rahti-secret-key-123',
+  secret: process.env.SESSION_SECRET || 'rahti-secret-key-123',
   resave: false,
   saveUninitialized: false,
   cookie: { 
     maxAge: 1000 * 60 * 60 * 24 // 24 hours
   }
 }));
-
-// Ensure users.json exists
-async function ensureUsersFile() {
-  if (!(await fs.pathExists(USERS_FILE))) {
-    await fs.writeJson(USERS_FILE, []);
-  }
-}
-ensureUsersFile();
 
 // Home route
 app.get("/", (req, res) => {
@@ -39,13 +58,15 @@ app.get("/", (req, res) => {
 // Get current user info (including history)
 app.get("/api/user", async (req, res) => {
   if (req.session.user) {
-    const users = await fs.readJson(USERS_FILE);
-    const user = users.find(u => u.email === req.session.user.email);
-    if (user) {
-      const { password, ...userWithoutPassword } = user;
-      res.json({ success: true, user: userWithoutPassword });
-    } else {
-      res.status(401).json({ success: false, message: "User not found" });
+    try {
+      const user = await User.findOne({ email: req.session.user.email }).select('-password');
+      if (user) {
+        res.json({ success: true, user });
+      } else {
+        res.status(401).json({ success: false, message: "User not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Server error" });
     }
   } else {
     res.status(401).json({ success: false, message: "Not logged in" });
@@ -55,10 +76,12 @@ app.get("/api/user", async (req, res) => {
 // Admin API: Get all users
 app.get("/api/admin/users", async (req, res) => {
   if (req.session.user && req.session.user.role === 'admin') {
-    const users = await fs.readJson(USERS_FILE);
-    // Filter out passwords and return all users
-    const safeUsers = users.map(({ password, ...rest }) => rest);
-    res.json({ success: true, users: safeUsers });
+    try {
+      const users = await User.find().select('-password');
+      res.json({ success: true, users });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Server error" });
+    }
   } else {
     res.status(403).json({ success: false, message: "Forbidden" });
   }
@@ -72,24 +95,19 @@ app.post("/api/save-test", async (req, res) => {
 
   try {
     const { score, category } = req.body;
-    const users = await fs.readJson(USERS_FILE);
-    const userIndex = users.findIndex(u => u.email === req.session.user.email);
+    const user = await User.findOne({ email: req.session.user.email });
 
-    if (userIndex === -1) {
+    if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    if (!users[userIndex].tests) {
-      users[userIndex].tests = [];
-    }
-
-    users[userIndex].tests.push({
+    user.tests.push({
       score,
       category,
       date: new Date()
     });
     
-    await fs.writeJson(USERS_FILE, users);
+    await user.save();
     res.json({ success: true, message: "Test saved successfully" });
   } catch (error) {
     console.error(error);
@@ -102,16 +120,15 @@ app.post("/register", async (req, res) => {
   try {
     const { name, email, password, age, sexe, hopital, service, experience, adminCode } = req.body;
     
-    const users = await fs.readJson(USERS_FILE);
-    
-    if (users.find(u => u.email === email)) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({ success: false, message: "This user already exists." });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const role = (adminCode === ADMIN_SECRET) ? "admin" : "user";
     
-    const newUser = {
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
@@ -123,10 +140,9 @@ app.post("/register", async (req, res) => {
       role,
       tests: [],
       createdAt: new Date()
-    };
+    });
     
-    users.push(newUser);
-    await fs.writeJson(USERS_FILE, users);
+    await newUser.save();
     
     req.session.user = { name: newUser.name, email: newUser.email, role: newUser.role };
     res.json({ success: true, redirect: role === "admin" ? "/admin-dashboard.html" : "/dashboard.html" });
@@ -141,9 +157,7 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const users = await fs.readJson(USERS_FILE);
-    const user = users.find(u => u.email === email);
-    
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ success: false, message: "Incorrect email or password." });
     }
@@ -167,7 +181,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/wassim.html");
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
