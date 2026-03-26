@@ -266,6 +266,7 @@
                         <div class="action-cell">
                             <button class="btn-view" onclick="viewUser(${index})" title="Voir détails">👁️</button>
                             <button class="btn-warning" onclick="toggleRole(${index})" title="Changer rôle">🔄</button>
+                            <button class="btn-view" style="background:#6c757d;" onclick="resetPassword(${index})" title="Réinitialiser MDP">🔑</button>
                             <button class="btn-danger" onclick="deleteUser(${index})" title="Supprimer">🗑️</button>
                         </div>
                     </td>
@@ -424,6 +425,23 @@
                     }
                 } catch (error) {
                     showNotification('Erreur lors de la suppression', 'error');
+                }
+            }
+        }
+
+        async function resetPassword(index) {
+            const user = allUsers[index];
+            if (confirm(`Réinitialiser le mot de passe de ${user.name} ?\nLe nouveau mot de passe sera par défaut (ex: Rahti${new Date().getFullYear()}).`)) {
+                try {
+                    const response = await fetch(`/api/admin/user/reset-password/${user._id}`, { method: 'POST' });
+                    const result = await response.json();
+                    if (result.success) {
+                        showNotification(result.message);
+                    } else {
+                        showNotification(result.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Erreur lors de la réinitialisation', 'error');
                 }
             }
         }

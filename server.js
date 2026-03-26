@@ -142,6 +142,29 @@ app.post("/api/admin/user/toggle-role/:id", async (req, res) => {
   }
 });
 
+// Admin API: Reset user password to default
+app.post("/api/admin/user/reset-password/:id", async (req, res) => {
+  if (req.session.user && req.session.user.role === 'admin') {
+    try {
+      const { id } = req.params;
+      const user = await User.findById(id);
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      const defaultPassword = "Rahti" + new Date().getFullYear(); // e.g., Rahti2026
+      user.password = await bcrypt.hash(defaultPassword, 10);
+      await user.save();
+      
+      res.json({ success: true, message: `Mot de passe réinitialisé à: ${defaultPassword}` });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Server error during password reset" });
+    }
+  } else {
+    res.status(403).json({ success: false, message: "Forbidden" });
+  }
+});
+
 // Save test result
 app.post("/api/save-test", async (req, res) => {
   if (!req.session.user) {
@@ -168,6 +191,34 @@ app.post("/api/save-test", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Error saving test result" });
+  }
+});
+
+// User API: Change password (while logged in)
+app.post("/api/user/change-password", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ success: false, message: "Not logged in" });
+  }
+
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findOne({ email: req.session.user.email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: "Mot de passe actuel incorrect." });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    
+    res.json({ success: true, message: "Mot de passe mis à jour avec succès !" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error during password change" });
   }
 });
 
@@ -228,6 +279,28 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Error during login." });
+  }
+});
+
+// Forgot Password Recovery (Public)
+app.post("/api/forgot-password", async (req, res) => {
+  try {
+    const { email, name, newPassword } = req.body;
+    
+    // Find user by email AND name for extra verification
+    const user = await User.findOne({ email, name });
+    
+    if (!user) {
+      return res.status(400).json({ success: false, message: "Les informations fournies ne correspondent à aucun compte." });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    
+    res.json({ success: true, message: "Mot de passe réinitialisé avec succès ! Vous pouvez maintenant vous connecter." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error during password recovery." });
   }
 });
 

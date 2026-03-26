@@ -83,6 +83,7 @@
         <nav class="header-nav">
             <a href="dashboard.html" class="nav-link">Dashboard</a>
             <a href="conseils.html" class="nav-link">Conseils</a>
+            <a href="#" onclick="showSettings()" class="nav-link" title="Paramètres">⚙️ Profil</a>
             <a href="test.html" class="nav-btn">Nouveau Test</a>
             <a href="/logout" class="nav-link nav-logout">Déconnexion</a>
         </nav>
@@ -169,6 +170,28 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div id="settings-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; backdrop-filter:blur(5px);">
+        <div style="background:white; max-width:450px; width:90%; margin:15vh auto; border-radius:16px; padding:2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                <h2 style="margin:0; font-size:1.5rem; color:#2b2d42;">Paramètres du compte</h2>
+                <button onclick="closeSettings()" style="border:none; background:none; font-size:1.5rem; cursor:pointer; color:#666;">×</button>
+            </div>
+            
+            <form id="change-password-form">
+                <div style="margin-bottom:1.2rem;">
+                    <label style="display:block; font-weight:600; margin-bottom:0.5rem; color:#444;">Ancien mot de passe</label>
+                    <input type="password" id="currentPassword" required style="width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; font-weight:600; margin-bottom:0.5rem; color:#444;">Nouveau mot de passe</label>
+                    <input type="password" id="newPassword" required minlength="6" style="width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Mettre à jour le mot de passe</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Toast Notification Container -->
     <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
 
@@ -189,6 +212,39 @@
         function closeModal() {
             document.getElementById('details-modal').style.display = 'none';
         }
+
+        function showSettings() {
+            document.getElementById('settings-modal').style.display = 'block';
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            try {
+                const response = await fetch('/api/user/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    showNotification(result.message);
+                    closeSettings();
+                    e.target.reset();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('Erreur lors du changement de mot de passe', 'error');
+            }
+        });
 
         const QUESTIONS_FR = [
             "Épuisement émotionnel", "Fatigue matinale", "Surcharge de travail", "Vidé après le travail", 
