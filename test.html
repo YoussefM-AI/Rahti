@@ -131,6 +131,8 @@
     let index = 0;
     let score = 0;
     let selected = null;
+    let selectedOptionIdx = null;
+    let userAnswers = [];
 
     function showQuestion(){
       document.getElementById("question").innerText = questions[index];
@@ -143,6 +145,7 @@
 
     function select(i){
       selected = options[i].val;
+      selectedOptionIdx = i;
       let all = document.querySelectorAll(".choice");
       all.forEach(e=>e.classList.remove("selected"));
       all[i].classList.add("selected");
@@ -155,12 +158,15 @@
       }
 
       let val = selected;
+      userAnswers.push(selectedOptionIdx);
+
       if(index >= 15){
         val = 4 - val;
       }
 
       score += val;
       selected = null;
+      selectedOptionIdx = null;
       index++;
 
       if(index < questions.length){
@@ -185,7 +191,7 @@
           const resp = await fetch('/api/save-test', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ score, category: res })
+              body: JSON.stringify({ score, category: res, answers: userAnswers })
           });
           const data = await resp.json();
           if (data.success) {

@@ -127,7 +127,7 @@
                 </div>
                 
                 <div class="actions-wrapper">
-                    <button class="btn-primary" onclick="showNotification('Affichage du détail complet bientôt disponible !', 'info')">Voir le détail complet</button>
+                    <button class="btn-primary" id="btn-show-details" disabled>Voir le détail complet</button>
                     <a href="conseils.html" class="btn-secondary">Voir mes conseils</a>
                 </div>
             </div>
@@ -153,10 +153,94 @@
         </div>
     </div>
 
+    <!-- Details Modal -->
+    <div id="details-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; backdrop-filter:blur(5px);">
+        <div style="background:white; max-width:700px; width:90%; height:80vh; margin:5vh auto; border-radius:16px; display:flex; flex-direction:column; overflow:hidden;">
+            <div style="padding:1.5rem; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="margin:0; font-size:1.5rem;">Détail de votre dernier test</h2>
+                <button onclick="closeModal()" style="border:none; background:none; font-size:1.5rem; cursor:pointer; color:#666;">×</button>
+            </div>
+            <div id="modal-content" style="padding:2rem; overflow-y:auto; flex-grow:1;">
+                <!-- Content injected here -->
+            </div>
+            <div style="padding:1rem; border-top:1px solid #eee; text-align:right;">
+                <button onclick="closeModal()" class="btn-secondary">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification Container -->
     <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
 
+    <style>
+        /* Tooltip style for modal */
+        .q-item { padding: 1rem; border-bottom: 1px solid #f8f9fa; }
+        .q-text { font-weight: 600; color: #444; margin-bottom: 0.5rem; }
+        .q-ans { font-size: 0.9rem; color: #3fbad9; font-weight: 700; }
+        .dimension-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .dim-card { background: #f8f9fa; padding: 1rem; border-radius: 12px; text-align: center; }
+        .dim-val { font-size: 1.5rem; font-weight: 800; color: #3fbad9; }
+        .dim-name { font-size: 0.8rem; text-transform: uppercase; color: #666; font-weight: 700; }
+    </style>
+
     <script>
+        let userData = null;
+        
+        function closeModal() {
+            document.getElementById('details-modal').style.display = 'none';
+        }
+
+        const QUESTIONS_FR = [
+            "Épuisement émotionnel", "Fatigue matinale", "Surcharge de travail", "Vidé après le travail", 
+            "Stress ressenti", "Manque d'énergie", "Sensation de dépassement", "Épuisement constant",
+            "Distance émotionnelle", "Moins concerné", "Indifférence aux patients", "Détachement progressif",
+            "Baisse d'empathie", "Protection émotionnelle", "Indifférence",
+            "Sentiment d'efficacité", "Aide aux patients", "Satisfaction pro", "Compétence",
+            "Gestion des situations", "Fierté du travail", "Sens au travail"
+        ];
+
+        const OPTIONS_TXT = ["Jamais", "Rarement", "Parfois", "Souvent", "Toujours"];
+
+        function showDetails() {
+            if (!userData || !userData.tests || userData.tests.length === 0) return;
+            const test = userData.tests[userData.tests.length - 1];
+            const modal = document.getElementById('details-modal');
+            const content = document.getElementById('modal-content');
+            
+            if (!test.answers || test.answers.length === 0) {
+                content.innerHTML = `<div style="text-align:center; padding:2rem;">
+                    <p>Ce test a été passé avant la mise à jour des détails. Les réponses individuelles ne sont pas disponibles.</p>
+                </div>`;
+            } else {
+                // Dimensions calculation (simple sum for demo)
+                // EE: 0-7, DP: 8-14, PA: 15-21
+                const ee = test.answers.slice(0, 8).reduce((a, b) => a + b, 0);
+                const dp = test.answers.slice(8, 15).reduce((a, b) => a + b, 0);
+                const pa = test.answers.slice(15, 22).reduce((a, b) => a + b, 0);
+
+                let html = `
+                    <div class="dimension-grid">
+                        <div class="dim-card"><div class="dim-val">${ee}</div><div class="dim-name">Épuisement</div></div>
+                        <div class="dim-card"><div class="dim-val">${dp}</div><div class="dim-name">Détachement</div></div>
+                        <div class="dim-card"><div class="dim-val">${pa}</div><div class="dim-name">Accomplissement</div></div>
+                    </div>
+                    <h3>Détail par question</h3>
+                `;
+
+                test.answers.forEach((ansIdx, i) => {
+                    html += `
+                        <div class="q-item">
+                            <div class="q-text">${i+1}. ${QUESTIONS_FR[i]}</div>
+                            <div class="q-ans">Réponse : ${OPTIONS_TXT[ansIdx]}</div>
+                        </div>
+                    `;
+                });
+                content.innerHTML = html;
+            }
+            modal.style.display = 'block';
+        }
+
+        document.getElementById('btn-show-details').onclick = showDetails;
         // Toast Notification System
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notification-container');
@@ -195,11 +279,13 @@
                 const data = await response.json();
                 
                 if (data.success) {
+                    userData = data.user;
                     const user = data.user;
                     const firstName = user.name.split(' ')[0];
                     document.getElementById('welcome-msg').textContent = `Bonjour ${firstName}, bienvenue sur votre tableau de bord !`;
                     
                     if (user.tests && user.tests.length > 0) {
+                        document.getElementById('btn-show-details').disabled = false;
                         const originalTests = user.tests;
                         const reversedTests = [...originalTests].reverse(); // Newest first
                         const lastTest = reversedTests[0];

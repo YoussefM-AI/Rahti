@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
   tests: [{
     score: Number,
     category: String,
+    answers: [Number],
     date: { type: Date, default: Date.now }
   }],
   createdAt: { type: Date, default: Date.now }
@@ -94,7 +95,7 @@ app.post("/api/save-test", async (req, res) => {
   }
 
   try {
-    const { score, category } = req.body;
+    const { score, category, answers } = req.body;
     const user = await User.findOne({ email: req.session.user.email });
 
     if (!user) {
@@ -104,6 +105,7 @@ app.post("/api/save-test", async (req, res) => {
     user.tests.push({
       score,
       category,
+      answers,
       date: new Date()
     });
     
