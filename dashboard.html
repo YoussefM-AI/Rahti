@@ -83,7 +83,6 @@
         <nav class="header-nav">
             <a href="dashboard.html" class="nav-link">Dashboard</a>
             <a href="conseils.html" class="nav-link">Conseils</a>
-            <a href="#" onclick="showSettings()" class="nav-link" title="Paramètres">⚙️ Profil</a>
             <a href="test.html" class="nav-btn">Nouveau Test</a>
             <a href="/logout" class="nav-link nav-logout">Déconnexion</a>
         </nav>
@@ -91,7 +90,12 @@
 
     <!-- Main Dashboard -->
     <div class="container">
-        <h1 class="page-title" id="welcome-msg">Bonjour, bienvenue sur votre tableau de bord</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1 class="page-title" id="welcome-msg" style="margin-bottom: 0;">Bonjour...</h1>
+            <button onclick="showSettings()" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
+                <span>👤</span> Modifier le Profil
+            </button>
+        </div>
         
         <!-- Stats Overview -->
         <div class="stats-grid">
@@ -172,23 +176,55 @@
 
     <!-- Settings Modal -->
     <div id="settings-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; backdrop-filter:blur(5px);">
-        <div style="background:white; max-width:450px; width:90%; margin:15vh auto; border-radius:16px; padding:2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+        <div id="settings-modal-content" style="background:white; max-width:550px; width:95%; max-height: 90vh; margin:5vh auto; border-radius:16px; padding:2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow-y: auto;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                <h2 style="margin:0; font-size:1.5rem; color:#2b2d42;">Paramètres du compte</h2>
+                <h2 style="margin:0; font-size:1.5rem; color:#2b2d42;">👤 Votre Profil</h2>
                 <button onclick="closeSettings()" style="border:none; background:none; font-size:1.5rem; cursor:pointer; color:#666;">×</button>
             </div>
             
-            <form id="change-password-form">
-                <div style="margin-bottom:1.2rem;">
-                    <label style="display:block; font-weight:600; margin-bottom:0.5rem; color:#444;">Ancien mot de passe</label>
-                    <input type="password" id="currentPassword" required style="width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
+            <form id="update-profile-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="grid-column: span 2;">
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Nom Complet</label>
+                    <input type="text" name="name" id="edit-name" required style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
                 </div>
-                <div style="margin-bottom:1.5rem;">
-                    <label style="display:block; font-weight:600; margin-bottom:0.5rem; color:#444;">Nouveau mot de passe</label>
-                    <input type="password" id="newPassword" required minlength="6" style="width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:8px; box-sizing:border-box;">
+                <div>
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Âge</label>
+                    <input type="number" name="age" id="edit-age" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
                 </div>
-                <button type="submit" class="btn-primary" style="width:100%;">Mettre à jour le mot de passe</button>
+                <div>
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Sexe</label>
+                    <select name="sexe" id="edit-sexe" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+                <div style="grid-column: span 2;">
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Hôpital</label>
+                    <input type="text" name="hopital" id="edit-hopital" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Service</label>
+                    <input type="text" name="service" id="edit-service" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; font-size: 0.9rem; margin-bottom: 0.4rem;">Expérience (ans)</label>
+                    <input type="number" name="experience" id="edit-experience" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                </div>
+                <button type="submit" class="btn-primary" style="grid-column: span 2; margin-top: 1rem;">Enregistrer les modifications</button>
             </form>
+
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Changer le mot de passe</h3>
+                <form id="change-password-form">
+                    <div style="margin-bottom:1rem;">
+                        <input type="password" id="currentPassword" placeholder="Ancien mot de passe" required style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <input type="password" id="newPassword" placeholder="Nouveau mot de passe (min 6 car.)" required minlength="6" style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px;">
+                    </div>
+                    <button type="submit" class="btn-secondary" style="width:100%;">Mettre à jour le mot de passe</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -214,12 +250,44 @@
         }
 
         function showSettings() {
+            if (userData) {
+                document.getElementById('edit-name').value = userData.name || '';
+                document.getElementById('edit-age').value = userData.age || '';
+                document.getElementById('edit-sexe').value = userData.sexe || 'H';
+                document.getElementById('edit-hopital').value = userData.hopital || '';
+                document.getElementById('edit-service').value = userData.service || '';
+                document.getElementById('edit-experience').value = userData.experience || '';
+            }
             document.getElementById('settings-modal').style.display = 'block';
         }
 
         function closeSettings() {
             document.getElementById('settings-modal').style.display = 'none';
         }
+
+        document.getElementById('update-profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/user/update-profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    showNotification(result.message);
+                    checkAuth(); // Refresh data
+                    closeSettings();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('Erreur réseau', 'error');
+            }
+        });
 
         document.getElementById('change-password-form').addEventListener('submit', async (e) => {
             e.preventDefault();

@@ -222,6 +222,40 @@ app.post("/api/user/change-password", async (req, res) => {
   }
 });
 
+// User API: Update full profile info
+app.post("/api/user/update-profile", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ success: false, message: "Not logged in" });
+  }
+
+  try {
+    const { name, age, sexe, hopital, service, experience } = req.body;
+    const user = await User.findOne({ email: req.session.user.email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Update fields
+    if (name) user.name = name;
+    if (age) user.age = age;
+    if (sexe) user.sexe = sexe;
+    if (hopital) user.hopital = hopital;
+    if (service) user.service = service;
+    if (experience) user.experience = experience;
+
+    await user.save();
+    
+    // Update session info if name changed
+    req.session.user.name = user.name;
+    
+    res.json({ success: true, message: "Profil mis à jour avec succès !" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Erreur lors de la mise à jour du profil" });
+  }
+});
+
 // Registration route
 app.post("/register", async (req, res) => {
   try {
