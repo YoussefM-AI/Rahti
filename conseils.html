@@ -45,12 +45,6 @@
     <div class="container">
         <a href="dashboard.html" class="btn-back">← Retour au Dashboard</a>
         
-        <div id="test-banner" style="display: none; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center; margin-bottom: 3rem;">
-            <div id="score-val" class="score-circle">-</div>
-            <div id="score-cat" class="score-category">Chargement...</div>
-            <div id="score-date" class="score-date">Analyse en cours</div>
-        </div>
-
         <div style="text-align: center; margin-bottom: 4rem;">
             <h1 style="font-size: 2.5rem; font-weight: 800; color: #2d3748; margin-bottom: 1rem;">Guide des Conseils de Prévention</h1>
             <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Découvrez nos recommandations adaptées à chaque état de fatigue pour préserver votre bien-être professionnel.</p>
@@ -100,9 +94,7 @@
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 4rem;">
-            <p style="color: #94a3b8; font-size: 0.9rem;"><em>Ces conseils sont donnés à titre indicatif et ne remplacent pas un avis médical professionnel.</em></p>
-        </div>
+        
     </div>
 
     <script>
@@ -111,36 +103,12 @@
                 const response = await fetch('/api/user');
                 const data = await response.json();
                 
-                if (data.success) {
-                    const user = data.user;
-                    if (user.tests && user.tests.length > 0) {
-                        const lastTest = user.tests[user.tests.length - 1];
-                        displayBanner(lastTest);
-                    }
-                } else {
+                if (!data.success) {
                     window.location.href = 'connexion.html';
                 }
             } catch (error) {
                 console.error('Failed to load user data:', error);
             }
-        }
-
-        function displayBanner(test) {
-            const score = test.score;
-            const banner = document.getElementById('test-banner');
-            banner.style.display = 'block';
-            
-            const scoreVal = document.getElementById('score-val');
-            scoreVal.textContent = score;
-            document.getElementById('score-cat').textContent = test.category;
-            
-            const dateStr = new Date(test.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('score-date').textContent = `Dernier test réalisé le ${dateStr}`;
-
-            // Colorize based on score
-            const color = score <= 29 ? '#2a9d8f' : (score <= 59 ? '#f4a261' : '#e63946');
-            scoreVal.style.background = color;
-            document.getElementById('score-cat').style.color = color;
         }
 
         initPage();
