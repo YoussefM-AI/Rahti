@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résultat Personnalisé</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    #scoreText {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #7f8c8d;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e1e8ed;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .btn-blue {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-orange {
+      background: #e67e22;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn-red {
+      background: #e74c3c;
+      color: white;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .green {
+      color: #27ae60;
+    }
+
+    .orange {
+      color: #e67e22;
+    }
+
+    .red {
+      color: #c0392b;
+    }
+
+    #resultExo {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff3e0;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>Votre résultat</h1>
+      <p id="scoreText"></p>
+      <h2 id="niveauText"></h2>
+    </div>
+
+    <div id="content"></div>
+  </div>
+
+  <script>
+    // On récupère le score ou on met 45 par défaut
+    let score = parseInt(localStorage.getItem("score")) || 45;
+
+    document.getElementById("scoreText").innerText = "Score: " + score + "/88";
+
+    let niveauText = document.getElementById("niveauText");
+    let content = document.getElementById("content");
+
+    // 🟢 NIVEAU 1
+    function niveau1() {
+      niveauText.innerHTML = "🟢 Stress léger";
+      niveauText.className = "green";
+
+      content.innerHTML = `
+      <div class="card">
+        <h3>🧘 Relaxation</h3>
+        <p>Exercice de respiration 2 minutes</p>
+        <button class="btn-blue">Commencer</button>
+      </div>
+
+      <div class="card">
+        <h3>🕒 Organisation</h3>
+        <p>Créez une to-do list et priorisez vos tâches</p>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ Prévention</h3>
+        <p>Apprenez à reconnaître les signes du burn-out</p>
+      </div>
+    `;
+    }
+
+    // 🟠 NIVEAU 2
+    function niveau2() {
+      niveauText.innerHTML = "🟠 Stress modéré";
+      niveauText.className = "orange";
+
+      content.innerHTML = `
+      <div class="card">
+        <h3>⚠️ Symptômes</h3>
+        <p>Fatigue, stress, pensées négatives</p>
+      </div>
+
+      <div class="card">
+        <h3>🧠 Exercice pensées</h3>
+
+        <input id="pensee" placeholder="Pensée négative">
+
+        <select id="emotion">
+          <option>Stress</option>
+          <option>Anxiété</option>
+          <option>Colère</option>
+          <option>Tristesse</option>
+        </select>
+
+        <input id="newPensee" placeholder="Nouvelle pensée">
+
+        <button class="btn-orange" onclick="resultExo()">Valider</button>
+
+        <div id="resultExo"></div>
+      </div>
+    `;
+    }
+
+    // 🔴 NIVEAU 3
+    function niveau3() {
+      niveauText.innerHTML = "🔴 Burn-out élevé";
+      niveauText.className = "red";
+
+      content.innerHTML = `
+      <div class="card">
+        <h3>🚨 Important</h3>
+        <p>Un accompagnement professionnel est recommandé</p>
+      </div>
+
+      <div class="card">
+        <h3>💬 Expression</h3>
+        <textarea placeholder="Exprimez vos émotions"></textarea>
+      </div>
+
+      <div class="card">
+        <h3>🧘 Relaxation guidée</h3>
+        <button class="btn-red">Écouter audio</button>
+      </div>
+    `;
+    }
+
+    // 🎯 RESULT EXERCICE NIVEAU 2
+    window.resultExo = function () {
+      let p = document.getElementById("pensee").value;
+      let e = document.getElementById("emotion").value;
+      let np = document.getElementById("newPensee").value;
+
+      document.getElementById("resultExo").innerHTML = `
+      <p><strong>Avant:</strong> ${p} (${e})</p>
+      <p><strong>Après:</strong> ${np}</p>
+    `;
+    }
+
+    // 🔥 CHOIX NIVEAU AUTO
+    if (score <= 29) {
+      niveau1();
+    } else if (score <= 59) {
+      niveau2();
+    } else {
+      niveau3();
+    }
+  </script>
+
+</body>
+
+</html>
