@@ -226,6 +226,20 @@
                 
                 if (!data.success) {
                     window.location.href = 'connexion.html';
+                    return;
+                }
+
+                // Restore last checklist state
+                const checklists = data.user.checklists;
+                if (checklists && checklists.length > 0) {
+                    const lastChecklist = checklists[checklists.length - 1];
+                    const savedItems = lastChecklist.items || [];
+                    document.querySelectorAll('.checklist-item').forEach(label => {
+                        const spanText = label.querySelector('span').textContent.trim();
+                        if (savedItems.includes(spanText)) {
+                            label.querySelector('input').checked = true;
+                        }
+                    });
                 }
             } catch (error) {
                 console.error('Failed to load user data:', error);
