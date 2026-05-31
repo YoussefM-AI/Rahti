@@ -2224,10 +2224,13 @@
                 });
                 const data = await resp.json();
                 if (data.success) {
-                    // Show success step
-                    document.querySelectorAll('.n3-step-container').forEach(el => el.classList.remove('active'));
+                    // Show inline success banner (steps stay visible)
                     const succ = document.getElementById('n3-step-success');
-                    if (succ) succ.classList.add('active');
+                    if (succ) {
+                        succ.style.display = 'block';
+                        setTimeout(() => { succ.style.display = 'none'; }, 5000);
+                    }
+                    showNotification("Exercice enregistré avec succès !");
 
                     // Redirect after a moment
                     setTimeout(() => {

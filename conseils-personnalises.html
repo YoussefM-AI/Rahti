@@ -1910,12 +1910,21 @@
             if (saved) {
                 try {
                     n3State = JSON.parse(saved);
-                    
                     const exp = document.getElementById('cp-n3-expression-input');
                     const prob = document.getElementById('cp-n3-problem-input');
                     const sol = document.getElementById('cp-n3-solution-input');
+                    if (exp) exp.value = n3State.expression || '';
+                    if (prob) prob.value = n3State.problem || '';
+                    if (sol) sol.value = n3State.solution || '';
+                    if (n3State.emotion) { selectCPN3Emotion(n3State.emotion); }
+                    renderCPN3IntensityGrid();
+                } catch (e) { console.error(e); }
+            } else {
+                renderCPN3IntensityGrid();
+            }
+        }
 
-                    if (exp) exp.value = n3State.e        async function submitCPN3Exercise() {
+        async function submitCPN3Exercise() {
             const eName = n3State.emotion;
             const exp = n3State.expression.trim();
             const prob = n3State.problem.trim();
@@ -1938,22 +1947,12 @@
                 });
                 const data = await resp.json();
                 if (data.success) {
-                    // Show inline success banner inside the wizard
+                    // Show inline success banner (steps stay visible)
                     const succ = document.getElementById('cp-n3-step-success');
                     if (succ) {
                         succ.style.display = 'block';
                         setTimeout(() => { succ.style.display = 'none'; }, 5000);
                     }
-                    showNotification("Exercice enregistré avec succès !");
-                } else {
-                    showNotification("Erreur lors de l'enregistrement : " + data.message, "error");
-                }
-            } catch (error) {
-                console.error(error);
-                showNotification("Erreur de connexion lors de l'enregistrement", "error");
-            }
-        }             const succ = document.getElementById('cp-n3-step-success');
-                    if (succ) succ.classList.add('active');
                     showNotification("Exercice enregistré avec succès !");
                 } else {
                     showNotification("Erreur lors de l'enregistrement : " + data.message, "error");
