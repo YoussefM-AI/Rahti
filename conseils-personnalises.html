@@ -564,11 +564,339 @@
         }
 
         /* ---- RESPONSIVE ---- */
-        @media (max-width: 768px) {
-            .site-header { padding: 1rem 1.5rem; }
-            .container { margin: 1.5rem auto; padding: 0 1rem; }
-            .score-hero { flex-direction: column; text-align: center; }
-            .planner-meta { grid-template-columns: 1fr; }
+        /* styles for Niveau 2 - Wizard & Symptoms */
+        .n2-symptom-card {
+            background: #fff5f5;
+            border-left: 5px solid #f4a261;
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(244, 162, 97, 0.05);
+            text-align: left;
+        }
+        .n2-symptom-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding-left: 0;
+            list-style: none;
+        }
+        .n2-symptom-item {
+            background: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid #fee2e2;
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+        }
+        .n2-symptom-bullet {
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .n2-wizard-card {
+            background: #fafbfc;
+            border: 2px solid #edf2f7;
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .n2-wizard-header {
+            background: linear-gradient(135deg, #0077b6 0%, #0096c7 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+        .n2-wizard-title {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .n2-wizard-step {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .n2-wizard-step.active {
+            border-color: #2a9d8f;
+            box-shadow: 0 4px 20px rgba(42, 157, 143, 0.08);
+        }
+        .n2-step-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .n2-step-question {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 1rem 0;
+        }
+        .n2-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: all 0.2s;
+        }
+        .n2-input:focus {
+            outline: none;
+            border-color: #2a9d8f;
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
+        }
+        .n2-emotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .n2-emotion-btn {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            padding: 0.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .n2-emotion-btn:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        .n2-emotion-btn.selected[data-emotion="Stress"] { background: #e0f2fe; border-color: #0284c7; color: #0284c7; }
+        .n2-emotion-btn.selected[data-emotion="Anxiété"] { background: #fef3c7; border-color: #d97706; color: #d97706; }
+        .n2-emotion-btn.selected[data-emotion="Colère"] { background: #fee2e2; border-color: #dc2626; color: #dc2626; }
+        .n2-emotion-btn.selected[data-emotion="Tristesse"] { background: #fef3c7; border-color: #d97706; color: #d97706; }
+
+        .n2-intensity-section {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .n2-intensity-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .n2-intensity-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+        }
+        .n2-intensity-btn {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            padding: 0.4rem 0;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .n2-intensity-btn:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        .n2-intensity-btn.selected {
+            background: #2a9d8f;
+            border-color: #2a9d8f;
+            color: white;
+        }
+
+        .n2-challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .n2-challenge-btn {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .n2-challenge-btn:hover {
+            border-color: #cbd5e1;
+        }
+        .n2-challenge-btn.selected {
+            background: #e0f2fe;
+            border-color: #0284c7;
+            color: #0284c7;
+        }
+
+        .n2-card-ref-red {
+            background: #fff5f5;
+            border: 1.5px solid #fca5a5;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: #c53030;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .n2-card-ref-green {
+            background: #f0fdf4;
+            border: 1.5px solid #86efac;
+            border-radius: 12px;
+            padding: 1rem;
+            color: #15803d;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .n2-textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1.5px solid #86efac;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            box-sizing: border-box;
+            background: white;
+            color: #1e293b;
+        }
+        .n2-textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+        }
+
+        .n2-compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 600px) {
+            .n2-compare-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .n2-compare-col {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1.5px solid #e2e8f0;
+        }
+        .n2-compare-header {
+            padding: 0.8rem 1.2rem;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .n2-compare-header.avant { background: #0077b6; }
+        .n2-compare-header.apres { background: #f4a261; }
+        .n2-compare-body {
+            padding: 1.2rem;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 120px;
+        }
+        .n2-compare-item {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .n2-compare-item strong {
+            color: #1e293b;
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .n2-progress-banner {
+            background: #fef3c7;
+            border: 1.5px solid #fcd34d;
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            color: #b45309;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .n2-btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+        }
+        .n2-btn-submit:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(22, 163, 74, 0.3);
         }
     </style>
 </head>
@@ -787,16 +1115,159 @@
         </div><!-- end panel-n1 -->
 
 
-        <!-- ========================= NIVEAU 2 PLACEHOLDER ========================= -->
+        <!-- ========================= NIVEAU 2 ========================= -->
         <div class="tab-panel" id="panel-n2">
-            <div class="placeholder-section">
-                <div class="placeholder-icon">🟠</div>
-                <div class="placeholder-title">Conseils Niveau 2 — En cours de développement</div>
-                <p class="placeholder-desc">
-                    Les outils personnalisés pour le niveau de stress modéré (score 30–59) sont en cours de préparation.
-                    Revenez bientôt pour accéder aux exercices de restructuration cognitive et de gestion émotionnelle.
-                </p>
-                <span class="placeholder-badge">🚧 Prochainement disponible</span>
+            <!-- Partie 1 : Symptômes -->
+            <div class="n2-symptom-card">
+                <h4 style="color: #2a9d8f; font-size: 1.15rem; font-weight: 700; margin: 0 0 1rem 0; line-height: 1.6; border-bottom: 1px solid #fee2e2; padding-bottom: 0.6rem;">
+                    Partie 1 - Ressentir ces symptômes à ce niveau est normal, c'est une réponse naturelle du corps et de l'esprit.
+                </h4>
+                <ul class="n2-symptom-list">
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> fatigue mentale persistante</li>
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> irritabilité, nervosité</li>
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> troubles de concentration</li>
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> Baisse de motivation</li>
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> Sentiment de surcharge</li>
+                    <li class="n2-symptom-item"><span class="n2-symptom-bullet">-</span> Pensées négatives répétitives</li>
+                </ul>
+            </div>
+
+            <!-- Partie 2 : Travaille sur tes pensées -->
+            <div class="section-block">
+                <h3 class="section-title" style="color: #2a9d8f;">Partie 2 :</h3>
+                
+                <div class="n2-wizard-card">
+                    <!-- Wizard Header simulating the mobile layout of the screenshot -->
+                    <div class="n2-wizard-header">
+                        <div class="n2-wizard-title">
+                            <span style="font-size: 1.3rem;">💚</span> Rahti &nbsp;&nbsp;|&nbsp;&nbsp; Travaille sur tes pensées ! ✨
+                        </div>
+                        <div style="font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                            <span>📶</span> <span>8:45</span>
+                        </div>
+                    </div>
+
+                    <!-- Étape 1 : Identifier la pensée -->
+                    <div class="n2-wizard-step active" id="cp-n2-step-card-1">
+                        <span class="n2-step-badge">Étape 1 : Identifier la pensée</span>
+                        <h5 class="n2-step-question">💬 Quelle pensée négative as-tu actuellement ?</h5>
+                        <input type="text" id="cp-n2-pensee" class="n2-input" placeholder="Ex: Je ne vais pas réussir ce travail" oninput="updateN2WizardLive()">
+                    </div>
+
+                    <!-- Étape 2 : Identifier l'émotion -->
+                    <div class="n2-wizard-step" id="cp-n2-step-card-2">
+                        <span class="n2-step-badge">Étape 2 : Identifier l'émotion</span>
+                        <h5 class="n2-step-question">🧠 Quelle émotion as-tu ressentie ?</h5>
+                        <div class="n2-emotions-grid">
+                            <button class="n2-emotion-btn cp-n2-emotion-btn" data-emotion="Stress" onclick="selectN2Emotion('Stress')">
+                                <span style="font-size: 1.8rem;">😭</span> Stress
+                            </button>
+                            <button class="n2-emotion-btn cp-n2-emotion-btn" data-emotion="Anxiété" onclick="selectN2Emotion('Anxiété')">
+                                <span style="font-size: 1.8rem;">😟</span> Anxiété
+                            </button>
+                            <button class="n2-emotion-btn cp-n2-emotion-btn" data-emotion="Colère" onclick="selectN2Emotion('Colère')">
+                                <span style="font-size: 1.8rem;">😡</span> Colère
+                            </button>
+                            <button class="n2-emotion-btn cp-n2-emotion-btn" data-emotion="Tristesse" onclick="selectN2Emotion('Tristesse')">
+                                <span style="font-size: 1.8rem;">😢</span> Tristesse
+                            </button>
+                        </div>
+                        <div class="n2-intensity-section" id="cp-n2-intensity-before-section" style="display: none;">
+                            <div class="n2-intensity-label">
+                                <span>Intensité initiale de l'émotion :</span>
+                                <span id="cp-n2-intensity-before-val" style="font-weight: 800; color: #2a9d8f;">8 / 10</span>
+                            </div>
+                            <div class="n2-intensity-grid" id="cp-n2-intensity-before-grid">
+                                <!-- Generated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 : Challenger la pensée -->
+                    <div class="n2-wizard-step" id="cp-n2-step-card-3">
+                        <span class="n2-step-badge">Étape 3 : Challenger la pensée</span>
+                        <h5 class="n2-step-question">🔍 Cette pensée est-elle 100% vraie ?</h5>
+                        <div class="n2-challenge-grid">
+                            <button class="n2-challenge-btn cp-n2-challenge-btn" data-challenge="Oui" onclick="selectN2Challenge('Oui')">Oui</button>
+                            <button class="n2-challenge-btn cp-n2-challenge-btn" data-challenge="Non" onclick="selectN2Challenge('Non')">Non</button>
+                            <button class="n2-challenge-btn cp-n2-challenge-btn" data-challenge="Pas sûr" onclick="selectN2Challenge('Pas sûr')">Pas sûr</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 4 : Reformulation -->
+                    <div class="n2-wizard-step" id="cp-n2-step-card-4">
+                        <span class="n2-step-badge">Étape 4 : Reformulation</span>
+                        <h5 class="n2-step-question">🔄 Remplace cette pensée par quelque chose de plus réaliste :</h5>
+                        
+                        <div class="n2-card-ref-red">
+                            <span style="font-size: 1.1rem;">❌</span>
+                            <span id="cp-n2-ref-old-thought" style="font-style: italic;">...</span>
+                        </div>
+
+                        <div class="n2-card-ref-green">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.1rem; color: #22c55e;">✔️</span>
+                                <span>Nouvelle pensée constructive :</span>
+                            </div>
+                            <textarea id="cp-n2-new-pensee" class="n2-textarea" rows="2" placeholder="Ex: Je peux avancer étape par étape. C'est difficile mais pas impossible." oninput="updateN2WizardLive()"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Étape 5 : Résultat Final -->
+                    <div class="n2-wizard-step" id="cp-n2-step-card-5">
+                        <span class="n2-step-badge">Étape 5 : Résultat Final</span>
+                        <h5 class="n2-step-question">📊 Comparatif Avant / Après</h5>
+                        
+                        <div class="n2-compare-grid">
+                            <div class="n2-compare-col">
+                                <div class="n2-compare-header avant">Avant</div>
+                                <div class="n2-compare-body">
+                                    <div class="n2-compare-item">
+                                        <strong>Pensée :</strong>
+                                        <span id="cp-n2-compare-old-pensee" style="font-style: italic;">...</span>
+                                    </div>
+                                    <div class="n2-compare-item">
+                                        <strong>Émotion :</strong>
+                                        <span id="cp-n2-compare-old-emotion">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="n2-compare-col">
+                                <div class="n2-compare-header apres">Après</div>
+                                <div class="n2-compare-body">
+                                    <div class="n2-compare-item">
+                                        <strong>Pensée :</strong>
+                                        <span id="cp-n2-compare-new-pensee" style="font-style: italic; color: #2a9d8f;">...</span>
+                                    </div>
+                                    <div class="n2-compare-item">
+                                        <strong>Émotion après exercice :</strong>
+                                        <span id="cp-n2-compare-new-emotion">—</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- After intensity selection -->
+                        <div class="n2-intensity-section" id="cp-n2-intensity-after-section" style="margin-bottom: 1.5rem;">
+                            <div class="n2-intensity-label">
+                                <span>Évaluez la nouvelle intensité de l'émotion :</span>
+                                <span id="cp-n2-intensity-after-val" style="font-weight: 800; color: #f4a261;">4 / 10</span>
+                            </div>
+                            <div class="n2-intensity-grid" id="cp-n2-intensity-after-grid">
+                                <!-- Generated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <div class="n2-progress-banner">
+                            <span>🎉</span> Bravo ! Tu progresses ! ✨
+                        </div>
+
+                        <button onclick="submitN2Exercise()" class="n2-btn-submit">
+                            Enregistrer l'exercice ➔
+                        </button>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -820,6 +1291,208 @@
         // ===================== SHARED localStorage KEYS (same as test.html) =====================
         const PLANNER_KEY = 'rahti_planner_state';
         const KANBAN_KEY  = 'rahti_kanban_tasks';
+
+        // ===================== NIVEAU 2 COGNITIVE WIZARD =====================
+        const COG_KEY = 'rahti_cognitive_exercise';
+        let n2State = {
+            pensee: '',
+            emotion: '',
+            intensityBefore: 8,
+            challenge: '',
+            newPensee: '',
+            intensityAfter: 4
+        };
+
+        function selectN2Emotion(emotionName) {
+            n2State.emotion = emotionName;
+            
+            document.querySelectorAll('.cp-n2-emotion-btn').forEach(btn => {
+                const emo = btn.getAttribute('data-emotion');
+                btn.classList.toggle('selected', emo === emotionName);
+            });
+
+            const intensitySection = document.getElementById('cp-n2-intensity-before-section');
+            if (intensitySection) intensitySection.style.display = 'block';
+
+            document.getElementById('cp-n2-step-card-2').classList.add('active');
+            
+            renderIntensityGrid('before');
+            updateN2WizardLive();
+        }
+
+        function selectN2Intensity(type, val) {
+            if (type === 'before') {
+                n2State.intensityBefore = val;
+                const label = document.getElementById('cp-n2-intensity-before-val');
+                if (label) label.textContent = val + ' / 10';
+                renderIntensityGrid('before');
+                document.getElementById('cp-n2-step-card-3').classList.add('active');
+            } else {
+                n2State.intensityAfter = val;
+                const label = document.getElementById('cp-n2-intensity-after-val');
+                if (label) label.textContent = val + ' / 10';
+                renderIntensityGrid('after');
+            }
+            updateN2WizardLive();
+        }
+
+        function renderIntensityGrid(type) {
+            const grid = document.getElementById(`cp-n2-intensity-${type}-grid`);
+            if (!grid) return;
+            const currentVal = type === 'before' ? n2State.intensityBefore : n2State.intensityAfter;
+            let html = '';
+            for (let i = 1; i <= 10; i++) {
+                const isSelected = i === currentVal ? 'selected' : '';
+                html += `<button class="n2-intensity-btn ${isSelected}" onclick="selectN2Intensity('${type}', ${i})">${i}</button>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function selectN2Challenge(challengeValue) {
+            n2State.challenge = challengeValue;
+            
+            document.querySelectorAll('.cp-n2-challenge-btn').forEach(btn => {
+                const ch = btn.getAttribute('data-challenge');
+                btn.classList.toggle('selected', ch === challengeValue);
+            });
+
+            document.getElementById('cp-n2-step-card-4').classList.add('active');
+            updateN2WizardLive();
+        }
+
+        function updateN2WizardLive() {
+            const pVal = document.getElementById('cp-n2-pensee');
+            const npVal = document.getElementById('cp-n2-new-pensee');
+
+            if (pVal) n2State.pensee = pVal.value;
+            if (npVal) n2State.newPensee = npVal.value;
+
+            if (n2State.pensee.trim().length > 0) {
+                document.getElementById('cp-n2-step-card-2').classList.add('active');
+            }
+            if (n2State.newPensee.trim().length > 0) {
+                document.getElementById('cp-n2-step-card-5').classList.add('active');
+            }
+
+            const oldThought = document.getElementById('cp-n2-ref-old-thought');
+            if (oldThought) oldThought.textContent = n2State.pensee || '...';
+
+            const compOldP = document.getElementById('cp-n2-compare-old-pensee');
+            if (compOldP) compOldP.textContent = n2State.pensee || '...';
+
+            const compOldE = document.getElementById('cp-n2-compare-old-emotion');
+            if (compOldE) {
+                if (n2State.emotion) {
+                    const emojiMap = { Stress: '😭', Anxiété: '😟', Colère: '😡', Tristesse: '😢' };
+                    compOldE.textContent = `${n2State.emotion} ${emojiMap[n2State.emotion] || ''} ${n2State.intensityBefore}/10`;
+                } else {
+                    compOldE.textContent = '—';
+                }
+            }
+
+            const compNewP = document.getElementById('cp-n2-compare-new-pensee');
+            if (compNewP) compNewP.textContent = n2State.newPensee || '...';
+
+            const compNewE = document.getElementById('cp-n2-compare-new-emotion');
+            if (compNewE) {
+                if (n2State.emotion) {
+                    const emojiMap = { Stress: '😭', Anxiété: '😟', Colère: '😡', Tristesse: '😢' };
+                    compNewE.textContent = `${n2State.emotion} ${emojiMap[n2State.emotion] || ''} ${n2State.intensityAfter}/10`;
+                } else {
+                    compNewE.textContent = '—';
+                }
+            }
+
+            saveN2State();
+        }
+
+        function saveN2State() {
+            localStorage.setItem(COG_KEY, JSON.stringify(n2State));
+        }
+
+        function loadN2State() {
+            const saved = localStorage.getItem(COG_KEY);
+            if (saved) {
+                try {
+                    n2State = JSON.parse(saved);
+                    
+                    const pVal = document.getElementById('cp-n2-pensee');
+                    const npVal = document.getElementById('cp-n2-new-pensee');
+                    if (pVal) pVal.value = n2State.pensee || '';
+                    if (npVal) npVal.value = n2State.newPensee || '';
+
+                    if (n2State.emotion) {
+                        selectN2Emotion(n2State.emotion);
+                    }
+                    
+                    renderIntensityGrid('before');
+                    renderIntensityGrid('after');
+                    
+                    const intensityBeforeLabel = document.getElementById('cp-n2-intensity-before-val');
+                    if (intensityBeforeLabel) intensityBeforeLabel.textContent = (n2State.intensityBefore || 8) + ' / 10';
+                    
+                    const intensityAfterLabel = document.getElementById('cp-n2-intensity-after-val');
+                    if (intensityAfterLabel) intensityAfterLabel.textContent = (n2State.intensityAfter || 4) + ' / 10';
+
+                    if (n2State.challenge) {
+                        selectN2Challenge(n2State.challenge);
+                    }
+
+                    if (n2State.pensee && n2State.pensee.trim()) {
+                        document.getElementById('cp-n2-step-card-2').classList.add('active');
+                    }
+                    if (n2State.emotion) {
+                        document.getElementById('cp-n2-step-card-3').classList.add('active');
+                    }
+                    if (n2State.challenge) {
+                        document.getElementById('cp-n2-step-card-4').classList.add('active');
+                    }
+                    if (n2State.newPensee && n2State.newPensee.trim()) {
+                        document.getElementById('cp-n2-step-card-5').classList.add('active');
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                renderIntensityGrid('before');
+                renderIntensityGrid('after');
+            }
+            updateN2WizardLive();
+        }
+
+        async function submitN2Exercise() {
+            const p = n2State.pensee.trim();
+            const eName = n2State.emotion;
+            const iBefore = n2State.intensityBefore;
+            const challenge = n2State.challenge;
+            const np = n2State.newPensee.trim();
+            const iAfter = n2State.intensityAfter;
+
+            if (!p || !eName || !challenge || !np) {
+                showNotification("Veuillez remplir toutes les étapes du wizard avant de continuer.", "error");
+                return;
+            }
+
+            const emojiMap = { Stress: '😭', Anxiété: '😟', Colère: '😡', Tristesse: '😢' };
+            const formattedEmotion = `${eName} ${emojiMap[eName] || ''} (Avant: ${iBefore}/10, Après: ${iAfter}/10)`;
+
+            try {
+                const resp = await fetch('/api/user/save-exercise', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pensee: p, emotion: formattedEmotion, newPensee: np })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    showNotification("Exercice de restructuration cognitive enregistré avec succès !");
+                } else {
+                    showNotification("Erreur lors de l'enregistrement : " + data.message, "error");
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification("Erreur de connexion lors de l'enregistrement", "error");
+            }
+        }
 
         // ===================== KANBAN STATE =====================
         let kanbanTasks = { urgente: [], importante: [], secondaire: [] };
@@ -992,6 +1665,7 @@
             // Always load planner & kanban data from localStorage
             loadPlannerState();
             loadKanbanState();
+            loadN2State();
         }
 
         function tryLocalStorageFallback() {
