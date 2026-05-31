@@ -399,17 +399,26 @@
                     return;
                 }
 
-                // Restore last checklist state
+                // Restore last checklist state only if it was saved today
                 const checklists = data.user.checklists;
                 if (checklists && checklists.length > 0) {
                     const lastChecklist = checklists[checklists.length - 1];
-                    const savedItems = lastChecklist.items || [];
-                    document.querySelectorAll('.checklist-item').forEach(label => {
-                        const spanText = label.querySelector('span').textContent.trim();
-                        if (savedItems.includes(spanText)) {
-                            label.querySelector('input').checked = true;
-                        }
-                    });
+                    const savedDate = new Date(lastChecklist.date);
+                    const today = new Date();
+                    
+                    const isToday = savedDate.getDate() === today.getDate() &&
+                                    savedDate.getMonth() === today.getMonth() &&
+                                    savedDate.getFullYear() === today.getFullYear();
+
+                    if (isToday) {
+                        const savedItems = lastChecklist.items || [];
+                        document.querySelectorAll('.checklist-item').forEach(label => {
+                            const spanText = label.querySelector('span').textContent.trim();
+                            if (savedItems.includes(spanText)) {
+                                label.querySelector('input').checked = true;
+                            }
+                        });
+                    }
                 }
             } catch (error) {
                 console.error('Failed to load user data:', error);
