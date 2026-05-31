@@ -1498,23 +1498,23 @@
             </div>
 
             <!-- Partie 1 : Symptômes -->
-            <div class="n2-card-ref-red" style="margin-bottom: 2rem;">
+            <div style="background: #f8faff; border: 1.5px solid #c7d2fe; border-radius: 20px; padding: 1.8rem; margin-bottom: 2rem; box-shadow: 0 4px 16px rgba(99,102,241,0.07);">
                 <div style="width: 100%;">
-                    <h3 style="margin: 0 0 1rem 0; color: #b91c1c; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-                        <span style="background: #fca5a5; padding: 4px 10px; border-radius: 8px; color: #7f1d1d; font-size: 0.9rem;">Niveau 3</span>
+                    <h3 style="margin: 0 0 1rem 0; color: #3730a3; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span style="background: #e0e7ff; padding: 4px 12px; border-radius: 8px; color: #4338ca; font-size: 0.85rem; font-weight: 700;">Niveau 3</span>
                         Partie 1 : Reconnaître les signes
                     </h3>
-                    <p style="color: #991b1b; font-size: 0.95rem; margin-bottom: 1rem;">
+                    <p style="color: #6366f1; font-size: 0.95rem; margin-bottom: 1.2rem; font-weight: 500;">
                         Ressentir ces symptômes à ce niveau est normal, c'est une réponse naturelle du corps et de l'esprit face à un stress prolongé.
                     </p>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; color: #b91c1c;">
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Fatigue extrême (même après repos)</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Perte totale de motivation</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Détachement du travail</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Sentiment d'échec ou d'inutilité</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Troubles du sommeil</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Irritabilité ou repli sur soi</li>
-                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Difficulté à prendre des décisions</li>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Fatigue extrême (même après repos)</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Perte totale de motivation</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Détachement du travail</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Sentiment d'échec ou d'inutilité</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Troubles du sommeil</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Irritabilité ou repli sur soi</li>
+                        <li style="display: flex; align-items: center; gap: 8px; color: #4338ca; font-weight: 600;">🔵 Difficulté à prendre des décisions</li>
                     </ul>
                 </div>
             </div>
@@ -1530,7 +1530,7 @@
                     <!-- ÉTAPE 1 -->
                     <div class="n3-step-container active" id="cp-n3-step-1">
                         <h4 class="n3-step-title">1️⃣ Étape 1 : Identification</h4>
-                        <p style="color: #0f766e; margin-bottom: 1.5rem; font-weight: 600;">Chnowa tahess taw ? (Choisis une émotion)</p>
+                        <p style="color: #0f766e; margin-bottom: 1.5rem; font-weight: 600;">Choisis une émotion: </p>
                         
                         <div class="n3-emotion-grid">
                             <button class="n3-emotion-btn cp-n3-emotion-btn" data-emotion="Tristesse" onclick="selectCPN3Emotion('Tristesse')">
@@ -1551,7 +1551,7 @@
                             </button>
                         </div>
 
-                        <div class="n2-intensity-section" id="cp-n3-intensity-section" style="display: none; margin-top: 1.5rem;">
+                        <div class="n2-intensity-section" id="cp-n3-intensity-section" style="margin-top: 1.5rem;">
                             <div class="n2-intensity-label">
                                 <span>Intensité de l'émotion :</span>
                                 <span id="cp-n3-intensity-val" style="font-weight: 800; color: #0d9488;">8 / 10</span>
@@ -1559,14 +1559,12 @@
                             <div class="n2-intensity-grid" id="cp-n3-intensity-grid">
                                 <!-- Dynamically generated 1 to 10 -->
                             </div>
-                            <button class="n3-btn-next" onclick="nextCPN3Step(2)" style="margin-top: 1.5rem;">
-                                Continuer ➔
-                            </button>
                         </div>
                     </div>
 
                     <!-- ÉTAPE 2 -->
-                    <div class="n3-step-container" id="cp-n3-step-2">
+                    <hr style="border: none; border-top: 1.5px solid #e2e8f0; margin: 2rem 0;">
+                    <div class="n3-step-container active" id="cp-n3-step-2">
                         <h4 class="n3-step-title">2️⃣ Étape 2 : Expression</h4>
                         <textarea id="cp-n3-expression-input" class="n3-textarea" placeholder="Écris ce que tu ressens ici... Ne garde rien pour toi." oninput="updateCPN3State()"></textarea>
                         
@@ -1574,14 +1572,11 @@
                             <li>✔️ Parler à quelqu'un de confiance</li>
                             <li>✔️ Exprimer sans aucun jugement</li>
                         </ul>
-
-                        <button class="n3-btn-next" onclick="nextCPN3Step(3)">
-                            Faire sortir la pression ➔
-                        </button>
                     </div>
 
                     <!-- ÉTAPE 3 -->
-                    <div class="n3-step-container" id="cp-n3-step-3">
+                    <hr style="border: none; border-top: 1.5px solid #e2e8f0; margin: 2rem 0;">
+                    <div class="n3-step-container active" id="cp-n3-step-3">
                         <h4 class="n3-step-title">3️⃣ Étape 3 : Résolution (Simplifiée)</h4>
                         <div style="background: #fef3c7; color: #b45309; padding: 0.8rem 1rem; border-radius: 12px; font-weight: 700; margin-bottom: 1.5rem; display: inline-block;">
                             ⚠️ Version simplifiée pour ne pas te surcharger
@@ -1920,24 +1915,7 @@
                     const prob = document.getElementById('cp-n3-problem-input');
                     const sol = document.getElementById('cp-n3-solution-input');
 
-                    if (exp) exp.value = n3State.expression || '';
-                    if (prob) prob.value = n3State.problem || '';
-                    if (sol) sol.value = n3State.solution || '';
-
-                    if (n3State.emotion) {
-                        selectCPN3Emotion(n3State.emotion);
-                    }
-                    
-                    renderCPN3IntensityGrid();
-                } catch (e) {
-                    console.error(e);
-                }
-            } else {
-                renderCPN3IntensityGrid();
-            }
-        }
-
-        async function submitCPN3Exercise() {
+                    if (exp) exp.value = n3State.e        async function submitCPN3Exercise() {
             const eName = n3State.emotion;
             const exp = n3State.expression.trim();
             const prob = n3State.problem.trim();
@@ -1948,7 +1926,7 @@
                 return;
             }
 
-            const emojiMap = { Tristesse: '😭', Colère: '😡', Fatigue: '😴', Vide: '😶' };
+            const emojiMap = { Tristesse: '😢', Colère: '😡', Fatigue: '😴', Vide: '😶' };
             const formattedEmotion = `${eName} ${emojiMap[eName] || ''} (${n3State.intensity}/10)`;
             const formattedNewPensee = `Problème : ${prob} | Solution : ${sol}`;
 
@@ -1960,8 +1938,21 @@
                 });
                 const data = await resp.json();
                 if (data.success) {
-                    document.querySelectorAll('.n3-step-container').forEach(el => el.classList.remove('active'));
+                    // Show inline success banner inside the wizard
                     const succ = document.getElementById('cp-n3-step-success');
+                    if (succ) {
+                        succ.style.display = 'block';
+                        setTimeout(() => { succ.style.display = 'none'; }, 5000);
+                    }
+                    showNotification("Exercice enregistré avec succès !");
+                } else {
+                    showNotification("Erreur lors de l'enregistrement : " + data.message, "error");
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification("Erreur de connexion lors de l'enregistrement", "error");
+            }
+        }             const succ = document.getElementById('cp-n3-step-success');
                     if (succ) succ.classList.add('active');
                     showNotification("Exercice enregistré avec succès !");
                 } else {
