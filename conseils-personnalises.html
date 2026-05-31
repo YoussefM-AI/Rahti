@@ -1950,7 +1950,7 @@
 
             const emojiMap = { Tristesse: '😭', Colère: '😡', Fatigue: '😴', Vide: '😶' };
             const formattedEmotion = `${eName} ${emojiMap[eName] || ''} (${n3State.intensity}/10)`;
-            const formattedNewPensee = \`Problème : ${prob} | Solution : ${sol}\`;
+            const formattedNewPensee = `Problème : ${prob} | Solution : ${sol}`;
 
             try {
                 const resp = await fetch('/api/user/save-exercise', {
