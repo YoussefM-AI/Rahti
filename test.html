@@ -78,6 +78,26 @@
         .info-section h3 { font-size: 1.2rem; color: #2d3748; margin-bottom: 1rem; font-weight: 700; }
         .info-list { color: #4a5568; font-size: 1rem; line-height: 1.6; }
         .level-tag { display:inline-block; padding: 0.3rem 0.8rem; border-radius: 8px; font-weight: 700; color: white; margin-right: 0.5rem; font-size: 0.85rem; }
+        
+        /* Interactive features styles */
+        .day-field textarea:focus {
+            background: #f8fafc;
+        }
+        .kanban-col input:focus {
+            outline: none;
+            border-color: #0077b6 !important;
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+        }
+        .btn-img-action {
+            transition: all 0.2s ease;
+        }
+        .btn-img-action:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        .btn-img-action:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body style="padding-top: 0;">
@@ -354,32 +374,277 @@
                     </div>
 
                     ${totalScore <= 29 ? `
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #2a9d8f30; margin-top: 1.5rem;">
-                        <h4 style="margin: 0 0 1.2rem 0; color: #2a9d8f; font-size: 1.1rem; border-bottom: 2px solid #2a9d8f10; padding-bottom: 0.5rem; font-weight: 800;">✔️ Objectif : prévenir le burn-out</h4>
+                    <div style="background: white; padding: 2.5rem; border-radius: 24px; border: 1px solid #edf2f7; box-shadow: 0 10px 30px rgba(0,0,0,0.02); margin-top: 2rem;">
+                        <!-- Titre Niveau 1 -->
+                        <h3 style="color: #2a9d8f; font-size: 1.8rem; font-weight: 800; border-bottom: 3px solid #2a9d8f15; padding-bottom: 0.8rem; margin: 0 0 2rem 0; display: flex; align-items: center; gap: 10px;">
+                            <span>Niveau 1 : Équilibre Préservé</span>
+                        </h3>
                         
-                        <div style="margin-bottom: 1.5rem;">
-                            <strong style="display: block; color: #2a9d8f; margin-bottom: 0.4rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;">🗂️ Organisation</strong>
-                            <p style="margin: 0; font-size: 0.95rem; color: #4a5568;">Faites une <span style="font-weight: 700;">to-do list</span> et classez vos tâches :</p>
-                            <ul style="margin: 0.4rem 0 0 1.2rem; font-size: 0.9rem; color: #4a5568; list-style-type: '→ '; padding-left: 0.5rem;">
-                                <li>Urgent</li>
-                                <li>Important</li>
-                                <li>Secondaire</li>
-                            </ul>
-                        </div>
+                        <!-- 1. Partie Planning -->
+                        <div class="advice-block" style="margin-bottom: 3.5rem;">
+                            <h4 style="color: #2a9d8f; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                                📅 -partie planning :
+                            </h4>
+                            <p style="color: #4a5568; line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem;">
+                                La planification est une compétence essentielle pour maintenir un équilibre entre vie professionnelle et personnelle. Elle permet de :
+                            </p>
+                            
+                            <div class="benefits-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem;">
+                                <div class="benefit-item" style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <span style="color: #2a9d8f; font-weight: bold; font-size: 1.2rem;">✔</span>
+                                    <div>
+                                        <strong style="color: #2d3748;">Réduire le stress :</strong>
+                                        <span style="color: #4a5568;"> en organisant les tâches, on évite la surcharge et les imprévus.</span>
+                                    </div>
+                                </div>
+                                <div class="benefit-item" style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <span style="color: #2a9d8f; font-weight: bold; font-size: 1.2rem;">✔</span>
+                                    <div>
+                                        <strong style="color: #2d3748;">Améliorer la concentration :</strong>
+                                        <span style="color: #4a5568;"> savoir quoi faire évite la dispersion.</span>
+                                    </div>
+                                </div>
+                                <div class="benefit-item" style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <span style="color: #2a9d8f; font-weight: bold; font-size: 1.2rem;">✔</span>
+                                    <div>
+                                        <strong style="color: #2d3748;">Gagner du temps :</strong>
+                                        <span style="color: #4a5568;"> moins d'hésitation, plus d'efficacité.</span>
+                                    </div>
+                                </div>
+                                <div class="benefit-item" style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <span style="color: #2a9d8f; font-weight: bold; font-size: 1.2rem;">✔</span>
+                                    <div>
+                                        <strong style="color: #2d3748;">Renforcer le sentiment de contrôle :</strong>
+                                        <span style="color: #4a5568;"> on se sent plus maître de sa journée.</span>
+                                    </div>
+                                </div>
+                                <div class="benefit-item" style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <span style="color: #2a9d8f; font-weight: bold; font-size: 1.2rem;">✔</span>
+                                    <div>
+                                        <strong style="color: #2d3748;">Prévenir le burn-out :</strong>
+                                        <span style="color: #4a5568;"> meilleure répartition des efforts et intégration de moments de repos.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p style="background: #f0fdf4; border-left: 4px solid #2a9d8f; padding: 1.2rem; border-radius: 0 12px 12px 0; color: #1e4d3a; font-style: italic; font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
+                                "Nous mettons à votre disposition des plannings hebdomadaires et mensuels afin de vous accompagner dans l'organisation de vos activités et la gestion de votre équilibre de vie."
+                            </p>
+                            
+                            <!-- Image HD Planning -->
+                            <div class="image-preview-container" style="text-align: center; margin-bottom: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #edf2f7;">
+                                <img src="planning_hebdomadaire.jpg" alt="Planning Hebdomadaire" style="max-width: 100%; max-height: 500px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">
+                                <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem;">
+                                    <a href="planning_hebdomadaire.jpg" download="planning_hebdomadaire.jpg" class="btn-img-action" style="text-decoration: none; background: #2a9d8f; color: white; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">📥 Télécharger le planning</a>
+                                    <button onclick="window.print()" class="btn-img-action" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px;">🖨️ Imprimer</button>
+                                </div>
+                            </div>
 
-                        <div style="margin-bottom: 1.5rem;">
-                            <strong style="display: block; color: #e76f51; margin-bottom: 0.4rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;">⚠️ Sensibilisation</strong>
-                            <p style="margin: 0; font-size: 0.95rem; color: #4a5568;">Apprenez à reconnaître les premiers signes :</p>
-                            <ul style="margin: 0.4rem 0 0 1.2rem; font-size: 0.9rem; color: #4a5568; list-style-type: '• '; padding-left: 0.5rem;">
-                                <li>Fatigue légère</li>
-                                <li>Stress</li>
-                                <li>Manque de concentration</li>
-                            </ul>
+                            <!-- Planner Hebdomadaire Interactif -->
+                            <div class="interactive-planner-card" style="background: #fafbfc; border: 2px solid #edf2f7; border-radius: 20px; padding: 2rem; margin-top: 2rem;">
+                                <h5 style="margin: 0 0 1.5rem 0; font-size: 1.2rem; color: #2d3748; font-weight: 800; border-bottom: 2px solid #edf2f7; padding-bottom: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                                    📝 Votre Planning Hebdomadaire Digital
+                                </h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                    <div>
+                                        <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #64748b; margin-bottom: 0.4rem; text-transform: uppercase;">Mois</label>
+                                        <input type="text" id="planner-month" placeholder="Ex: Juin" style="width: 100%; padding: 0.8rem; border: 1.5px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; background: white;" oninput="window.savePlannerState()">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #64748b; margin-bottom: 0.4rem; text-transform: uppercase;">Semaine</label>
+                                        <input type="text" id="planner-week" placeholder="Ex: Semaine 23" style="width: 100%; padding: 0.8rem; border: 1.5px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; background: white;" oninput="window.savePlannerState()">
+                                    </div>
+                                </div>
+                                <div class="planner-days-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Dimanche</strong>
+                                        <textarea id="day-dimanche" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Lundi</strong>
+                                        <textarea id="day-lundi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Mardi</strong>
+                                        <textarea id="day-mardi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Mercredi</strong>
+                                        <textarea id="day-mercredi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Jeudi</strong>
+                                        <textarea id="day-jeudi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Vendredi</strong>
+                                        <textarea id="day-vendredi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Samedi</strong>
+                                        <textarea id="day-samedi" placeholder="Que prévoyez-vous ?" rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                    <div class="day-field" style="background: white; padding: 1rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; color: #0077b6; margin-bottom: 0.6rem; font-size: 0.95rem;">Notes</strong>
+                                        <textarea id="day-notes" placeholder="Notes additionnelles..." rows="2" style="width: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 0.9rem;" oninput="window.savePlannerState()"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        
+                        <!-- 2. Différencier les tâches -->
+                        <div class="advice-block" style="margin-bottom: 3.5rem;">
+                            <h4 style="color: #2a9d8f; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                                ⚡ Différencier les tâches : urgente, importante, secondaire :
+                            </h4>
+                            <p style="color: #4a5568; line-height: 1.7; font-size: 1.05rem; margin-bottom: 1.5rem;">
+                                Pour mieux organiser votre temps et réduire le stress, il est essentiel de classer vos tâches selon leur priorité. Toutes les tâches ne se valent pas : certaines doivent être faites immédiatement, d'autres peuvent attendre, et certaines sont moins importantes.
+                            </p>
+                            
+                            <!-- Image HD Priorité des Tâches -->
+                            <div class="image-preview-container" style="text-align: center; margin-bottom: 2.5rem; background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #edf2f7;">
+                                <img src="taches_priorite.jpg" alt="Classement des tâches selon leur priorité" style="max-width: 100%; max-height: 500px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">
+                            </div>
 
-                        <div style="background: #0077b608; padding: 1rem; border-radius: 8px; border: 1px dashed #0077b630;">
-                            <strong style="display: block; color: #0077b6; margin-bottom: 0.4rem; font-size: 0.95rem; text-transform: uppercase;">🎯 Action simple</strong>
-                            <p style="margin: 0; font-size: 0.95rem; color: #4a5568;">Prenez une <span style="font-weight: 700;">pause consciente</span> aujourd'hui. Accordez-vous <span style="font-weight: 700;">5 minutes de repos</span> complet.</p>
+                            <!-- Kanban Interactif -->
+                            <div class="kanban-section" style="margin-top: 2rem;">
+                                <h5 style="margin: 0 0 1.2rem 0; font-size: 1.2rem; color: #2d3748; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                                    📌 Classez vos tâches selon leur priorité
+                                </h5>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                                    <!-- Column Urgent -->
+                                    <div class="kanban-col" style="background: #fef2f2; border: 2px solid #fca5a5; border-radius: 16px; padding: 1.2rem;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 2px solid #fee2e2; padding-bottom: 0.5rem;">
+                                            <span style="font-weight: 800; color: #dc2626; font-size: 0.95rem; text-transform: uppercase;">🔴 Urgente</span>
+                                            <span style="background: #fecaca; color: #dc2626; padding: 0.1rem 0.5rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;" id="count-urgente">0</span>
+                                        </div>
+                                        <div style="display: flex; gap: 6px; margin-bottom: 1rem;">
+                                            <input type="text" id="input-urgente" placeholder="Ajouter une tâche..." style="flex: 1; padding: 0.6rem; border: 1.5px solid #fca5a5; border-radius: 8px; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') window.addTask('urgente')">
+                                            <button onclick="window.addTask('urgente')" style="background: #dc2626; color: white; border: none; padding: 0.6rem 0.8rem; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;">+</button>
+                                        </div>
+                                        <div id="list-urgente" style="display: flex; flex-direction: column; gap: 8px; min-height: 100px;"></div>
+                                    </div>
+
+                                    <!-- Column Importante -->
+                                    <div class="kanban-col" style="background: #fffbeb; border: 2px solid #fde047; border-radius: 16px; padding: 1.2rem;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 2px solid #fef3c7; padding-bottom: 0.5rem;">
+                                            <span style="font-weight: 800; color: #d97706; font-size: 0.95rem; text-transform: uppercase;">🟡 Importante</span>
+                                            <span style="background: #fef08a; color: #d97706; padding: 0.1rem 0.5rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;" id="count-importante">0</span>
+                                        </div>
+                                        <div style="display: flex; gap: 6px; margin-bottom: 1rem;">
+                                            <input type="text" id="input-importante" placeholder="Ajouter une tâche..." style="flex: 1; padding: 0.6rem; border: 1.5px solid #fde047; border-radius: 8px; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') window.addTask('importante')">
+                                            <button onclick="window.addTask('importante')" style="background: #d97706; color: white; border: none; padding: 0.6rem 0.8rem; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;">+</button>
+                                        </div>
+                                        <div id="list-importante" style="display: flex; flex-direction: column; gap: 8px; min-height: 100px;"></div>
+                                    </div>
+
+                                    <!-- Column Secondaire -->
+                                    <div class="kanban-col" style="background: #f0fdf4; border: 2px solid #86efac; border-radius: 16px; padding: 1.2rem;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 2px solid #dcfce7; padding-bottom: 0.5rem;">
+                                            <span style="font-weight: 800; color: #16a34a; font-size: 0.95rem; text-transform: uppercase;">🟢 Secondaire</span>
+                                            <span style="background: #bbf7d0; color: #16a34a; padding: 0.1rem 0.5rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;" id="count-secondaire">0</span>
+                                        </div>
+                                        <div style="display: flex; gap: 6px; margin-bottom: 1rem;">
+                                            <input type="text" id="input-secondaire" placeholder="Ajouter une tâche..." style="flex: 1; padding: 0.6rem; border: 1.5px solid #86efac; border-radius: 8px; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') window.addTask('secondaire')">
+                                            <button onclick="window.addTask('secondaire')" style="background: #16a34a; color: white; border: none; padding: 0.6rem 0.8rem; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;">+</button>
+                                        </div>
+                                        <div id="list-secondaire" style="display: flex; flex-direction: column; gap: 8px; min-height: 100px;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Kanban Info Panel -->
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; background: #f8fafc; border: 1px solid #edf2f7; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.01);">
+                                    <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.8rem;">
+                                        <div style="display: flex; align-items: center; gap: 10px; color: #475569; font-size: 0.95rem; font-weight: 700;">
+                                            <span style="font-size: 1.2rem;">🕒</span> <span>Restez concentrée sur l'essentiel</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; color: #475569; font-size: 0.95rem; font-weight: 700;">
+                                            <span style="font-size: 1.2rem;">🩺</span> <span>Soignez avec sérénité</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; color: #475569; font-size: 0.95rem; font-weight: 700;">
+                                            <span style="font-size: 1.2rem;">❤️</span> <span>Prenez soin de vous aussi</span>
+                                        </div>
+                                    </div>
+                                    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; font-size: 0.85rem; line-height: 1.6; color: #334155; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                                        <strong style="display: block; margin-bottom: 0.5rem; color: #1e293b; font-weight: 800; font-size: 0.9rem;">💡 Exemples :</strong>
+                                        <ul style="margin: 0; padding-left: 1.2rem; list-style-type: disc; display: flex; flex-direction: column; gap: 4px;">
+                                            <li><span style="font-weight: 700; color: #dc2626;">URGENTE :</span> Administrer médicaments, répondre à une alarme</li>
+                                            <li><span style="font-weight: 700; color: #d97706;">IMPORTANTE :</span> Préparer dossier patient, faire les transmissions</li>
+                                            <li><span style="font-weight: 700; color: #16a34a;">SECONDAIRE :</span> classer documents, organiser matériel</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 3. Signes du Burnout -->
+                        <div class="advice-block" style="margin-bottom: 1.5rem;">
+                            <h4 style="color: #dc2626; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                                ⚠️ Un rappel sur les signes du burnout :
+                            </h4>
+                            <p style="color: #4a5568; line-height: 1.7; font-size: 1.05rem; margin-bottom: 2rem;">
+                                Il est important de connaître ces signes dès maintenant pour pouvoir prévenir un burn-out avant qu'il n'apparaisse dans le futur :
+                            </p>
+                            
+                            <div class="burnout-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem;">
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">🥱</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Fatigue constante</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Sensation d'épuisement qui ne disparaît pas avec le sommeil.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">😩</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Perte d'intérêt</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Manque d'enthousiasme ou désintérêt croissant pour le travail.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">📉</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Baisse de performance</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Difficultés d'efficacité, erreurs accrues ou retards récurrents.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">😴</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Troubles du sommeil</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Insomnies, réveils nocturnes ou sommeil non réparateur.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">🤕</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Symptômes physiques – Maux de tête, douleurs, troubles digestifs</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Maux de tête fréquents, douleurs corporelles, troubles digestifs.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">😡</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Irritabilité</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Patience réduite, réactions émotionnelles intenses ou irritabilité.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">👥</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Isolement social</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Tendance à s'isoler des collègues, amis ou de la famille.</span>
+                                    </div>
+                                </div>
+                                <div class="burnout-item" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; display: flex; gap: 12px; align-items: center; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#ef4444';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+                                    <span style="font-size: 2.2rem; min-width: 45px; text-align: center;">🍷</span>
+                                    <div>
+                                        <strong style="color: #1e293b; display: block; font-size: 1.05rem;">Abus de compensations</strong>
+                                        <span style="color: #64748b; font-size: 0.9rem;">Recours accru au café, médicaments ou substances pour tenir le coup.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     ` : ''}
@@ -450,7 +715,121 @@
                 </div>
             </div>
         `;
+        
+        if(totalScore <= 29) {
+            setTimeout(() => {
+                window.loadTasksState();
+                window.loadPlannerState();
+            }, 10);
+        }
     }
+
+    // Global state for Level 1 interactive tasks board
+    window.kanbanTasks = {
+        urgente: [],
+        importante: [],
+        secondaire: []
+    };
+
+    window.addTask = function(column) {
+        const input = document.getElementById('input-' + column);
+        if(!input) return;
+        const text = input.value.trim();
+        if(!text) return;
+        
+        window.kanbanTasks[column].push(text);
+        input.value = '';
+        
+        window.renderTasks(column);
+        window.saveTasksState();
+    };
+
+    window.deleteTask = function(column, index) {
+        window.kanbanTasks[column].splice(index, 1);
+        window.renderTasks(column);
+        window.saveTasksState();
+    };
+
+    window.renderTasks = function(column) {
+        const list = document.getElementById('list-' + column);
+        const count = document.getElementById('count-' + column);
+        if(!list || !count) return;
+        const tasks = window.kanbanTasks[column];
+        
+        count.innerText = tasks.length;
+        
+        let html = '';
+        tasks.forEach((task, idx) => {
+            html += `
+                <div style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.6rem 0.8rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); animation: fadeIn 0.2s forwards;">
+                    <span style="font-size: 0.9rem; color: #334155; font-weight: 600; word-break: break-word;">${task}</span>
+                    <button onclick="window.deleteTask('${column}', ${idx})" style="background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 0.2rem; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">×</button>
+                </div>
+            `;
+        });
+        list.innerHTML = html || '<div style="color: #94a3b8; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 1.5rem;">Aucune tâche</div>';
+    };
+
+    window.saveTasksState = function() {
+        localStorage.setItem('rahti_kanban_tasks', JSON.stringify(window.kanbanTasks));
+    };
+
+    window.loadTasksState = function() {
+        const saved = localStorage.getItem('rahti_kanban_tasks');
+        if (saved) {
+            try {
+                window.kanbanTasks = JSON.parse(saved);
+            } catch(e) {
+                console.error(e);
+            }
+        }
+        window.renderTasks('urgente');
+        window.renderTasks('importante');
+        window.renderTasks('secondaire');
+    };
+
+    window.savePlannerState = function() {
+        const plannerMonth = document.getElementById('planner-month');
+        const plannerWeek = document.getElementById('planner-week');
+        if(!plannerMonth || !plannerWeek) return;
+        
+        const planner = {
+            month: plannerMonth.value,
+            week: plannerWeek.value,
+            days: {
+                dimanche: document.getElementById('day-dimanche').value,
+                lundi: document.getElementById('day-lundi').value,
+                mardi: document.getElementById('day-mardi').value,
+                mercredi: document.getElementById('day-mercredi').value,
+                jeudi: document.getElementById('day-jeudi').value,
+                vendredi: document.getElementById('day-vendredi').value,
+                samedi: document.getElementById('day-samedi').value,
+                notes: document.getElementById('day-notes').value
+            }
+        };
+        localStorage.setItem('rahti_planner_state', JSON.stringify(planner));
+    };
+
+    window.loadPlannerState = function() {
+        const saved = localStorage.getItem('rahti_planner_state');
+        if(saved) {
+            try {
+                const planner = JSON.parse(saved);
+                const plannerMonth = document.getElementById('planner-month');
+                const plannerWeek = document.getElementById('planner-week');
+                if(plannerMonth) plannerMonth.value = planner.month || '';
+                if(plannerWeek) plannerWeek.value = planner.week || '';
+                if(planner.days) {
+                    for(const day in planner.days) {
+                        const el = document.getElementById('day-' + day);
+                        if(el) el.value = planner.days[day] || '';
+                    }
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        }
+    };
 
     function simulateTest(score) {
         // Mock MBI-22 answers to hit the target score logic
