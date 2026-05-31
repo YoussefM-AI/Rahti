@@ -514,7 +514,15 @@
                     body: JSON.stringify({ score: totalScore, category, answers: userAnswers })
                 });
                 const data = await resp.json();
-                if (data.success) showNotification("Test enregistré avec succès !");
+                if (data.success) {
+                    showNotification("Test enregistré avec succès !");
+                    // Also persist to localStorage for cross-page access
+                    localStorage.setItem('rahti_last_test', JSON.stringify({
+                        score: totalScore,
+                        category,
+                        date: new Date().toISOString()
+                    }));
+                }
             } catch (error) {
                 showNotification("Erreur lors de l'enregistrement", "error");
             }

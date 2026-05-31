@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conseils Personnalisés - Rahti</title>
+    <meta name="description" content="Vos conseils personnalisés selon votre niveau de stress et burn-out.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #2b2d42;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---- HEADER ---- */
+        .site-header {
+            width: 100%;
+            padding: 1.2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .brand-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-back {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: #0077b6; }
+
+        /* ---- MAIN CONTAINER ---- */
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* ---- HERO / SCORE CARD ---- */
+        .score-hero {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid #edf2f7;
+            position: relative;
+            overflow: hidden;
+        }
+        .score-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #0077b6, #3fbad9);
+        }
+        .score-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 8px solid #2a9d8f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .score-circle .score-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .score-circle .score-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #2d3748;
+        }
+        .score-info h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1a202c;
+        }
+        .score-info p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        .score-date-badge {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #16a34a;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 0.8rem;
+        }
+        #no-test-msg {
+            display: none;
+            background: #fefce8;
+            border: 2px dashed #fde047;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* ---- TABS ---- */
+        .tabs-wrapper {
+            margin-bottom: 2.5rem;
+        }
+        .tabs-nav {
+            display: flex;
+            gap: 0.8rem;
+            background: white;
+            padding: 0.6rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid #edf2f7;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 160px;
+            padding: 0.9rem 1.2rem;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: transparent;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .tab-btn:hover:not(.active) {
+            background: #f8fafc;
+            color: #475569;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 119, 182, 0.25);
+        }
+        .tab-btn .tab-badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .tab-btn.active .tab-badge {
+            background: rgba(255,255,255,0.25);
+            color: white;
+        }
+        .tab-btn:not(.active) .tab-badge {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.4s forwards; }
+
+        /* ---- SECTION HEADERS ---- */
+        .section-block {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 1px solid #edf2f7;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin: 0 0 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-desc {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        /* ---- BENEFITS LIST ---- */
+        .benefit-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 0.9rem;
+        }
+        .benefit-check { color: #2a9d8f; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; }
+
+        /* ---- IMAGE CARD ---- */
+        .image-card {
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .image-card img {
+            max-width: 100%;
+            max-height: 480px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .image-actions {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-img-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+        .btn-img-action:hover { transform: translateY(-2px); opacity: 0.9; }
+        .btn-img-action.primary { background: #2a9d8f; color: white; }
+        .btn-img-action.secondary { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+        /* ---- PLANNER ---- */
+        .planner-card {
+            background: #fafbfc;
+            border: 2px solid #edf2f7;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        .planner-card h5 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.1rem;
+            color: #2d3748;
+            font-weight: 800;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .planner-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .planner-meta label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+        .planner-meta input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .planner-meta input:focus {
+            outline: none;
+            border-color: #0077b6;
+            box-shadow: 0 0 0 3px rgba(0,119,182,0.1);
+        }
+        .planner-days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+        }
+        .day-field {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        .day-field strong {
+            display: block;
+            color: #0077b6;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .day-field textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            background: transparent;
+            color: #334155;
+        }
+
+        /* ---- KANBAN ---- */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .kanban-col { border-radius: 16px; padding: 1.2rem; }
+        .kanban-col.urgente  { background: #fef2f2; border: 2px solid #fca5a5; }
+        .kanban-col.importante { background: #fffbeb; border: 2px solid #fde047; }
+        .kanban-col.secondaire { background: #f0fdf4; border: 2px solid #86efac; }
+
+        .kanban-col-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+        .kanban-col.urgente   .kanban-col-header { border-bottom: 2px solid #fee2e2; }
+        .kanban-col.importante .kanban-col-header { border-bottom: 2px solid #fef3c7; }
+        .kanban-col.secondaire .kanban-col-header { border-bottom: 2px solid #dcfce7; }
+
+        .kanban-col-label { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; }
+        .kanban-col.urgente   .kanban-col-label { color: #dc2626; }
+        .kanban-col.importante .kanban-col-label { color: #d97706; }
+        .kanban-col.secondaire .kanban-col-label { color: #16a34a; }
+
+        .kanban-count {
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+        .kanban-col.urgente   .kanban-count { background: #fecaca; color: #dc2626; }
+        .kanban-col.importante .kanban-count { background: #fef08a; color: #d97706; }
+        .kanban-col.secondaire .kanban-count { background: #bbf7d0; color: #16a34a; }
+
+        .kanban-input-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 1rem;
+        }
+        .kanban-input-row input {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .kanban-col.urgente   .kanban-input-row input { border: 1.5px solid #fca5a5; }
+        .kanban-col.importante .kanban-input-row input { border: 1.5px solid #fde047; }
+        .kanban-col.secondaire .kanban-input-row input { border: 1.5px solid #86efac; }
+
+        .kanban-input-row input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,119,182,0.12);
+        }
+        .btn-add-task {
+            color: white;
+            border: none;
+            padding: 0.6rem 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: opacity 0.2s;
+        }
+        .btn-add-task:hover { opacity: 0.85; }
+        .kanban-col.urgente   .btn-add-task { background: #dc2626; }
+        .kanban-col.importante .btn-add-task { background: #d97706; }
+        .kanban-col.secondaire .btn-add-task { background: #16a34a; }
+
+        .kanban-list { display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+        .kanban-task {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            animation: fadeIn 0.2s forwards;
+        }
+        .kanban-task span {
+            font-size: 0.9rem;
+            color: #334155;
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .btn-del-task {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.1rem 0.3rem;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-del-task:hover { color: #ef4444; }
+        .kanban-empty {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* ---- KANBAN INFO PANEL ---- */
+        .kanban-info-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .info-tips { display: flex; flex-direction: column; justify-content: center; gap: 0.8rem; }
+        .info-tip-row { display: flex; align-items: center; gap: 10px; color: #475569; font-size: 0.95rem; font-weight: 700; }
+        .examples-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.2rem;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #334155;
+        }
+        .examples-box strong { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #1e293b; }
+        .examples-box ul { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px; }
+
+        /* ---- BURNOUT GRID ---- */
+        .burnout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+        .burnout-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: default;
+        }
+        .burnout-item:hover { transform: translateY(-2px); border-color: #ef4444; }
+        .burnout-icon { font-size: 2.2rem; min-width: 45px; text-align: center; }
+        .burnout-item strong { color: #1e293b; display: block; font-size: 1rem; margin-bottom: 2px; }
+        .burnout-item span { color: #64748b; font-size: 0.88rem; }
+
+        /* ---- QUOTE BLOCK ---- */
+        .quote-block {
+            background: #f0fdf4;
+            border-left: 4px solid #2a9d8f;
+            padding: 1.2rem;
+            border-radius: 0 12px 12px 0;
+            color: #1e4d3a;
+            font-style: italic;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* ---- PLACEHOLDER CARD (Niveau 2 & 3) ---- */
+        .placeholder-section {
+            background: white;
+            border-radius: 24px;
+            border: 2px dashed #e2e8f0;
+            padding: 3rem 2.5rem;
+            text-align: center;
+        }
+        .placeholder-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .placeholder-title { font-size: 1.4rem; font-weight: 800; color: #1e293b; margin-bottom: 0.8rem; }
+        .placeholder-desc { color: #64748b; line-height: 1.7; max-width: 500px; margin: 0 auto 2rem auto; }
+        .placeholder-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* ---- NOTIFICATION ---- */
+        #notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .toast {
+            background: #2a9d8f;
+            color: white;
+            padding: 1rem 1.6rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+            font-weight: 600;
+            transform: translateX(130%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 768px) {
+            .site-header { padding: 1rem 1.5rem; }
+            .container { margin: 1.5rem auto; padding: 0 1rem; }
+            .score-hero { flex-direction: column; text-align: center; }
+            .planner-meta { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="notification-container"></div>
+
+    <header class="site-header">
+        <a href="home.html" class="brand-text">Rahti</a>
+        <a href="conseils.html" class="nav-back">← Retour aux conseils</a>
+    </header>
+
+    <div class="container">
+
+        <!-- PAGE TITLE -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.6rem; font-weight: 900; color: #1a202c; margin-bottom: 0.8rem; letter-spacing: -0.5px;">
+                Mes Conseils Personnalisés
+            </h1>
+            <p style="color: #64748b; font-size: 1.1rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
+                Retrouvez vos outils personnalisés selon les résultats de votre dernier test, et gérez vos activités au quotidien.
+            </p>
+        </div>
+
+        <!-- NO TEST MESSAGE -->
+        <div id="no-test-msg">
+            <p style="font-size: 1.3rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem;">⚠️ Aucun test trouvé</p>
+            <p style="color: #78350f; margin-bottom: 1.5rem;">Passez votre premier test pour accéder à vos conseils personnalisés.</p>
+            <a href="test.html" style="background: #f59e0b; color: white; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 800; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Passer le test →</a>
+        </div>
+
+        <!-- SCORE HERO CARD -->
+        <div class="score-hero" id="score-hero" style="display:none;">
+            <div class="score-circle" id="score-circle">
+                <span class="score-label">SCORE</span>
+                <span class="score-value" id="hero-score">—</span>
+            </div>
+            <div class="score-info">
+                <h2 id="hero-category">—</h2>
+                <p id="hero-desc">—</p>
+                <span class="score-date-badge" id="hero-date">—</span>
+            </div>
+        </div>
+
+        <!-- TABS NAVIGATION -->
+        <div class="tabs-wrapper" id="tabs-wrapper" style="display:none;">
+            <div class="tabs-nav">
+                <button class="tab-btn active" id="tab-n1" onclick="switchTab('n1')">
+                    🟢 Niveau 1
+                    <span class="tab-badge">Score ≤ 29</span>
+                </button>
+                <button class="tab-btn" id="tab-n2" onclick="switchTab('n2')">
+                    🟠 Niveau 2
+                    <span class="tab-badge">Score 30–59</span>
+                </button>
+                <button class="tab-btn" id="tab-n3" onclick="switchTab('n3')">
+                    🔴 Niveau 3
+                    <span class="tab-badge">Score ≥ 60</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================= NIVEAU 1 ========================= -->
+        <div class="tab-panel active" id="panel-n1">
+
+            <!-- 1. Partie Planning -->
+            <div class="section-block">
+                <h3 class="section-title" style="color: #2a9d8f;">📅 -partie planning :</h3>
+                <p class="section-desc">
+                    La planification est une compétence essentielle pour maintenir un équilibre entre vie professionnelle et personnelle. Elle permet de :
+                </p>
+
+                <div style="margin-bottom: 2rem;">
+                    <div class="benefit-item"><span class="benefit-check">✔</span><div><strong style="color:#2d3748;">Réduire le stress :</strong><span style="color:#4a5568;"> en organisant les tâches, on évite la surcharge et les imprévus.</span></div></div>
+                    <div class="benefit-item"><span class="benefit-check">✔</span><div><strong style="color:#2d3748;">Améliorer la concentration :</strong><span style="color:#4a5568;"> savoir quoi faire évite la dispersion.</span></div></div>
+                    <div class="benefit-item"><span class="benefit-check">✔</span><div><strong style="color:#2d3748;">Gagner du temps :</strong><span style="color:#4a5568;"> moins d'hésitation, plus d'efficacité.</span></div></div>
+                    <div class="benefit-item"><span class="benefit-check">✔</span><div><strong style="color:#2d3748;">Renforcer le sentiment de contrôle :</strong><span style="color:#4a5568;"> on se sent plus maître de sa journée.</span></div></div>
+                    <div class="benefit-item"><span class="benefit-check">✔</span><div><strong style="color:#2d3748;">Prévenir le burn-out :</strong><span style="color:#4a5568;"> meilleure répartition des efforts et intégration de moments de repos.</span></div></div>
+                </div>
+
+                <div class="quote-block">
+                    "Nous mettons à votre disposition des plannings hebdomadaires afin de vous accompagner dans l'organisation de vos activités et la gestion de votre équilibre de vie."
+                </div>
+
+                <!-- Image HD Planning -->
+                <div class="image-card">
+                    <img src="planning_hebdomadaire.jpg" alt="Planning Hebdomadaire">
+                    <div class="image-actions">
+                        <a href="planning_hebdomadaire.jpg" download="planning_hebdomadaire.jpg" class="btn-img-action primary">📥 Télécharger le planning</a>
+                        <button onclick="window.print()" class="btn-img-action secondary">🖨️ Imprimer</button>
+                    </div>
+                </div>
+
+                <!-- Interactive Digital Planner -->
+                <div class="planner-card">
+                    <h5>📝 Votre Planning Hebdomadaire Digital</h5>
+                    <div class="planner-meta">
+                        <div>
+                            <label>Mois</label>
+                            <input type="text" id="cp-planner-month" placeholder="Ex: Juin" oninput="savePlannerState()">
+                        </div>
+                        <div>
+                            <label>Semaine</label>
+                            <input type="text" id="cp-planner-week" placeholder="Ex: Semaine 23" oninput="savePlannerState()">
+                        </div>
+                    </div>
+                    <div class="planner-days-grid">
+                        <div class="day-field"><strong>Dimanche</strong><textarea id="cp-day-dimanche" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Lundi</strong><textarea id="cp-day-lundi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Mardi</strong><textarea id="cp-day-mardi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Mercredi</strong><textarea id="cp-day-mercredi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Jeudi</strong><textarea id="cp-day-jeudi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Vendredi</strong><textarea id="cp-day-vendredi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Samedi</strong><textarea id="cp-day-samedi" placeholder="Que prévoyez-vous ?" rows="2" oninput="savePlannerState()"></textarea></div>
+                        <div class="day-field"><strong>Notes</strong><textarea id="cp-day-notes" placeholder="Notes additionnelles..." rows="2" oninput="savePlannerState()"></textarea></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Différencier les tâches -->
+            <div class="section-block">
+                <h3 class="section-title" style="color: #2a9d8f;">⚡ Différencier les tâches : urgente, importante, secondaire :</h3>
+                <p class="section-desc">
+                    Pour mieux organiser votre temps et réduire le stress, il est essentiel de classer vos tâches selon leur priorité. Toutes les tâches ne se valent pas : certaines doivent être faites immédiatement, d'autres peuvent attendre, et certaines sont moins importantes.
+                </p>
+
+                <!-- Image HD Tâches -->
+                <div class="image-card">
+                    <img src="taches_priorite.jpg" alt="Classez vos tâches selon leur priorité">
+                    <div class="image-actions">
+                        <a href="taches_priorite.jpg" download="taches_priorite.jpg" class="btn-img-action primary">📥 Télécharger la fiche</a>
+                        <button onclick="window.print()" class="btn-img-action secondary">🖨️ Imprimer</button>
+                    </div>
+                </div>
+
+                <!-- Interactive Kanban Board -->
+                <h4 style="font-size: 1.2rem; font-weight: 800; color: #2d3748; margin: 2rem 0 1.2rem 0; display: flex; align-items: center; gap: 8px;">📌 Classez vos tâches selon leur priorité</h4>
+
+                <div class="kanban-board">
+                    <!-- URGENTE -->
+                    <div class="kanban-col urgente">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-label">🔴 Urgente</span>
+                            <span class="kanban-count" id="cp-count-urgente">0</span>
+                        </div>
+                        <div class="kanban-input-row">
+                            <input type="text" id="cp-input-urgente" placeholder="Ajouter une tâche..." onkeypress="if(event.key==='Enter') addTask('urgente')">
+                            <button class="btn-add-task" onclick="addTask('urgente')">+</button>
+                        </div>
+                        <div class="kanban-list" id="cp-list-urgente"></div>
+                    </div>
+
+                    <!-- IMPORTANTE -->
+                    <div class="kanban-col importante">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-label">🟡 Importante</span>
+                            <span class="kanban-count" id="cp-count-importante">0</span>
+                        </div>
+                        <div class="kanban-input-row">
+                            <input type="text" id="cp-input-importante" placeholder="Ajouter une tâche..." onkeypress="if(event.key==='Enter') addTask('importante')">
+                            <button class="btn-add-task" onclick="addTask('importante')">+</button>
+                        </div>
+                        <div class="kanban-list" id="cp-list-importante"></div>
+                    </div>
+
+                    <!-- SECONDAIRE -->
+                    <div class="kanban-col secondaire">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-label">🟢 Secondaire</span>
+                            <span class="kanban-count" id="cp-count-secondaire">0</span>
+                        </div>
+                        <div class="kanban-input-row">
+                            <input type="text" id="cp-input-secondaire" placeholder="Ajouter une tâche..." onkeypress="if(event.key==='Enter') addTask('secondaire')">
+                            <button class="btn-add-task" onclick="addTask('secondaire')">+</button>
+                        </div>
+                        <div class="kanban-list" id="cp-list-secondaire"></div>
+                    </div>
+                </div>
+
+                <!-- Info / Examples Panel -->
+                <div class="kanban-info-panel">
+                    <div class="info-tips">
+                        <div class="info-tip-row"><span style="font-size:1.2rem;">🕒</span> Restez concentrée sur l'essentiel</div>
+                        <div class="info-tip-row"><span style="font-size:1.2rem;">🩺</span> Soignez avec sérénité</div>
+                        <div class="info-tip-row"><span style="font-size:1.2rem;">❤️</span> Prenez soin de vous aussi</div>
+                    </div>
+                    <div class="examples-box">
+                        <strong>💡 Exemples :</strong>
+                        <ul>
+                            <li><span style="font-weight:700; color:#dc2626;">URGENTE :</span> Administrer médicaments, répondre à une alarme</li>
+                            <li><span style="font-weight:700; color:#d97706;">IMPORTANTE :</span> Préparer dossier patient, faire les transmissions</li>
+                            <li><span style="font-weight:700; color:#16a34a;">SECONDAIRE :</span> Classer documents, organiser matériel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Signes du Burnout -->
+            <div class="section-block">
+                <h3 class="section-title" style="color: #dc2626;">⚠️ Un rappel sur les signes du burnout :</h3>
+                <p class="section-desc">
+                    Il est important de connaître ces signes dès maintenant pour pouvoir prévenir un burn-out avant qu'il n'apparaisse dans le futur :
+                </p>
+                <div class="burnout-grid">
+                    <div class="burnout-item"><span class="burnout-icon">🥱</span><div><strong>Fatigue constante</strong><span>Sensation d'épuisement qui ne disparaît pas avec le sommeil.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">😩</span><div><strong>Perte d'intérêt</strong><span>Manque d'enthousiasme ou désintérêt croissant pour le travail.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">📉</span><div><strong>Baisse de performance</strong><span>Difficultés d'efficacité, erreurs accrues ou retards récurrents.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">😴</span><div><strong>Troubles du sommeil</strong><span>Insomnies, réveils nocturnes ou sommeil non réparateur.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">🤕</span><div><strong>Symptômes physiques</strong><span>Maux de tête fréquents, douleurs corporelles, troubles digestifs.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">😡</span><div><strong>Irritabilité</strong><span>Patience réduite, réactions émotionnelles intenses.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">👥</span><div><strong>Isolement social</strong><span>Tendance à s'isoler des collègues, amis ou de la famille.</span></div></div>
+                    <div class="burnout-item"><span class="burnout-icon">🍷</span><div><strong>Abus de compensations</strong><span>Recours accru au café, médicaments ou substances pour tenir le coup.</span></div></div>
+                </div>
+            </div>
+
+        </div><!-- end panel-n1 -->
+
+
+        <!-- ========================= NIVEAU 2 PLACEHOLDER ========================= -->
+        <div class="tab-panel" id="panel-n2">
+            <div class="placeholder-section">
+                <div class="placeholder-icon">🟠</div>
+                <div class="placeholder-title">Conseils Niveau 2 — En cours de développement</div>
+                <p class="placeholder-desc">
+                    Les outils personnalisés pour le niveau de stress modéré (score 30–59) sont en cours de préparation.
+                    Revenez bientôt pour accéder aux exercices de restructuration cognitive et de gestion émotionnelle.
+                </p>
+                <span class="placeholder-badge">🚧 Prochainement disponible</span>
+            </div>
+        </div>
+
+
+        <!-- ========================= NIVEAU 3 PLACEHOLDER ========================= -->
+        <div class="tab-panel" id="panel-n3">
+            <div class="placeholder-section">
+                <div class="placeholder-icon">🔴</div>
+                <div class="placeholder-title">Conseils Niveau 3 — En cours de développement</div>
+                <p class="placeholder-desc">
+                    Les outils personnalisés pour le niveau de burn-out élevé (score ≥ 60) sont en cours de préparation.
+                    Revenez bientôt pour accéder aux exercices d'accompagnement intensif et de protection de votre bien-être.
+                </p>
+                <span class="placeholder-badge">🚧 Prochainement disponible</span>
+            </div>
+        </div>
+
+    </div><!-- end .container -->
+
+    <script>
+        // ===================== SHARED localStorage KEYS (same as test.html) =====================
+        const PLANNER_KEY = 'rahti_planner_state';
+        const KANBAN_KEY  = 'rahti_kanban_tasks';
+
+        // ===================== KANBAN STATE =====================
+        let kanbanTasks = { urgente: [], importante: [], secondaire: [] };
+
+        function addTask(col) {
+            const input = document.getElementById('cp-input-' + col);
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
+            kanbanTasks[col].push(text);
+            input.value = '';
+            renderKanban(col);
+            saveKanbanState();
+        }
+
+        function deleteTask(col, idx) {
+            kanbanTasks[col].splice(idx, 1);
+            renderKanban(col);
+            saveKanbanState();
+        }
+
+        function renderKanban(col) {
+            const list  = document.getElementById('cp-list-' + col);
+            const count = document.getElementById('cp-count-' + col);
+            if (!list || !count) return;
+            count.textContent = kanbanTasks[col].length;
+            if (kanbanTasks[col].length === 0) {
+                list.innerHTML = '<div class="kanban-empty">Aucune tâche</div>';
+                return;
+            }
+            list.innerHTML = kanbanTasks[col].map((task, idx) => `
+                <div class="kanban-task">
+                    <span>${task}</span>
+                    <button class="btn-del-task" onclick="deleteTask('${col}', ${idx})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function saveKanbanState() {
+            localStorage.setItem(KANBAN_KEY, JSON.stringify(kanbanTasks));
+        }
+
+        function loadKanbanState() {
+            const saved = localStorage.getItem(KANBAN_KEY);
+            if (saved) {
+                try { kanbanTasks = JSON.parse(saved); } catch (e) { console.error(e); }
+            }
+            ['urgente', 'importante', 'secondaire'].forEach(col => renderKanban(col));
+        }
+
+        // ===================== PLANNER STATE =====================
+        function savePlannerState() {
+            const month = document.getElementById('cp-planner-month');
+            const week  = document.getElementById('cp-planner-week');
+            if (!month || !week) return;
+            const planner = {
+                month: month.value,
+                week: week.value,
+                days: {
+                    dimanche: document.getElementById('cp-day-dimanche').value,
+                    lundi:    document.getElementById('cp-day-lundi').value,
+                    mardi:    document.getElementById('cp-day-mardi').value,
+                    mercredi: document.getElementById('cp-day-mercredi').value,
+                    jeudi:    document.getElementById('cp-day-jeudi').value,
+                    vendredi: document.getElementById('cp-day-vendredi').value,
+                    samedi:   document.getElementById('cp-day-samedi').value,
+                    notes:    document.getElementById('cp-day-notes').value
+                }
+            };
+            localStorage.setItem(PLANNER_KEY, JSON.stringify(planner));
+        }
+
+        function loadPlannerState() {
+            const saved = localStorage.getItem(PLANNER_KEY);
+            if (!saved) return;
+            try {
+                const p = JSON.parse(saved);
+                const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+                setVal('cp-planner-month', p.month);
+                setVal('cp-planner-week', p.week);
+                if (p.days) {
+                    Object.keys(p.days).forEach(d => setVal('cp-day-' + d, p.days[d]));
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        // ===================== TABS =====================
+        function switchTab(level) {
+            ['n1', 'n2', 'n3'].forEach(l => {
+                document.getElementById('tab-' + l).classList.toggle('active', l === level);
+                document.getElementById('panel-' + l).classList.toggle('active', l === level);
+            });
+        }
+
+        // ===================== SCORE DISPLAY =====================
+        function displayScore(score, category, date) {
+            const scoreHero = document.getElementById('score-hero');
+            const circle    = document.getElementById('score-circle');
+            const noTest    = document.getElementById('no-test-msg');
+            const tabsWrap  = document.getElementById('tabs-wrapper');
+
+            scoreHero.style.display = 'flex';
+            tabsWrap.style.display  = 'block';
+            noTest.style.display    = 'none';
+
+            document.getElementById('hero-score').textContent = score;
+
+            let color = '#2a9d8f', desc = '', activeTab = 'n1';
+            if (score <= 29) {
+                color = '#2a9d8f'; desc = 'Votre profil correspond à un risque faible de burnout professionnel.'; activeTab = 'n1';
+            } else if (score <= 59) {
+                color = '#f4a261'; desc = 'Votre profil correspond à un risque modéré de burnout professionnel.'; activeTab = 'n2';
+            } else {
+                color = '#e63946'; desc = 'Votre profil correspond à un risque élevé de burnout professionnel.'; activeTab = 'n3';
+            }
+            circle.style.borderColor = color;
+            document.getElementById('hero-category').style.color = color;
+            document.getElementById('hero-category').textContent = category;
+            document.getElementById('hero-desc').textContent = desc;
+
+            const d = new Date(date);
+            document.getElementById('hero-date').textContent =
+                '📅 Dernier test : ' + d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            // Auto-switch to the user's corresponding level tab
+            switchTab(activeTab);
+        }
+
+        function showNoTest() {
+            document.getElementById('no-test-msg').style.display = 'block';
+            document.getElementById('score-hero').style.display  = 'none';
+            document.getElementById('tabs-wrapper').style.display = 'block';
+        }
+
+        // ===================== NOTIFICATION =====================
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('notification-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'error') toast.style.background = '#e63946';
+            toast.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => { toast.style.transform = 'translateX(130%)'; setTimeout(() => toast.remove(), 400); }, 4000);
+        }
+
+        // ===================== INIT =====================
+        async function initPage() {
+            try {
+                const res  = await fetch('/api/user');
+                const data = await res.json();
+                if (data.success && data.user) {
+                    const tests = data.user.tests;
+                    if (tests && tests.length > 0) {
+                        const last = tests[tests.length - 1];
+                        displayScore(last.score, last.category, last.date || new Date().toISOString());
+                    } else {
+                        // Try localStorage fallback
+                        tryLocalStorageFallback();
+                    }
+                } else {
+                    // Not logged in – try localStorage
+                    tryLocalStorageFallback();
+                }
+            } catch (e) {
+                console.error(e);
+                tryLocalStorageFallback();
+            }
+
+            // Always load planner & kanban data from localStorage
+            loadPlannerState();
+            loadKanbanState();
+        }
+
+        function tryLocalStorageFallback() {
+            const saved = localStorage.getItem('rahti_last_test');
+            if (saved) {
+                try {
+                    const last = JSON.parse(saved);
+                    displayScore(last.score, last.category, last.date || new Date().toISOString());
+                    return;
+                } catch (e) { console.error(e); }
+            }
+            showNoTest();
+        }
+
+        initPage();
+    </script>
+</body>
+
+</html>
