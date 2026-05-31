@@ -898,6 +898,223 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(22, 163, 74, 0.3);
         }
+        /* ======================== NIVEAU 3 STYLES ======================== */
+        .n3-alert-card {
+            background: #fff5f5;
+            border: 2px solid #ef4444;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
+        }
+        .n3-alert-title {
+            color: #b91c1c;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin: 0 0 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .n3-alert-text {
+            color: #7f1d1d;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            font-weight: 600;
+        }
+        .n3-alert-text span.highlight {
+            background: rgba(239, 68, 68, 0.15);
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+        }
+
+        .n3-wizard-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid #f1f5f9;
+        }
+        .n3-wizard-header {
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            padding: 1.5rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .n3-wizard-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        .n3-wizard-body {
+            padding: 2rem;
+        }
+        
+        .n3-step-container {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .n3-step-container.active {
+            display: block;
+        }
+        
+        .n3-step-title {
+            color: #0f766e;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin: 0 0 1.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .n3-emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .n3-emotion-btn {
+            background: #f0fdfa;
+            border: 2px solid #ccfbf1;
+            padding: 1rem;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f766e;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .n3-emotion-btn span.emoji {
+            font-size: 2rem;
+        }
+        .n3-emotion-btn:hover {
+            background: #ccfbf1;
+            transform: translateY(-2px);
+        }
+        .n3-emotion-btn.selected {
+            background: #0d9488;
+            border-color: #0d9488;
+            color: white;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .n3-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #99f6e4;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            box-sizing: border-box;
+            background: #f0fdfa;
+            color: #0f766e;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+        .n3-textarea:focus {
+            outline: none;
+            border-color: #0d9488;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+
+        .n3-bullet-list {
+            margin: 0 0 1.5rem 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .n3-bullet-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0f766e;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: #ccfbf1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+        }
+
+        .n3-problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 600px) {
+            .n3-problem-grid { grid-template-columns: 1fr; }
+        }
+        .n3-problem-col {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.2rem;
+        }
+        .n3-problem-col h5 {
+            margin: 0 0 1rem 0;
+            color: #334155;
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .n3-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        .n3-input:focus {
+            outline: none;
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .n3-btn-next {
+            width: 100%;
+            padding: 1.2rem;
+            background: #0d9488;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+        .n3-btn-next:hover {
+            background: #0f766e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+        }
     </style>
 </head>
 
@@ -1269,16 +1486,140 @@
         </div>
 
 
-        <!-- ========================= NIVEAU 3 PLACEHOLDER ========================= -->
+        <!-- ========================= NIVEAU 3 WIZARD ========================= -->
         <div class="tab-panel" id="panel-n3">
-            <div class="placeholder-section">
-                <div class="placeholder-icon">🔴</div>
-                <div class="placeholder-title">Conseils Niveau 3 — En cours de développement</div>
-                <p class="placeholder-desc">
-                    Les outils personnalisés pour le niveau de burn-out élevé (score ≥ 60) sont en cours de préparation.
-                    Revenez bientôt pour accéder aux exercices d'accompagnement intensif et de protection de votre bien-être.
+            
+            <!-- Alerte Critique -->
+            <div class="n3-alert-card">
+                <h4 class="n3-alert-title">🚨 Alerte : Épuisement Important</h4>
+                <p class="n3-alert-text">
+                    À ce niveau, <span class="highlight">il peut être très bénéfique de demander l’aide d’un professionnel</span>, comme un psychologue, pour être accompagné et mieux comprendre ce que vous ressentez.
                 </p>
-                <span class="placeholder-badge">🚧 Prochainement disponible</span>
+            </div>
+
+            <!-- Partie 1 : Symptômes -->
+            <div class="n2-card-ref-red" style="margin-bottom: 2rem;">
+                <div style="width: 100%;">
+                    <h3 style="margin: 0 0 1rem 0; color: #b91c1c; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                        <span style="background: #fca5a5; padding: 4px 10px; border-radius: 8px; color: #7f1d1d; font-size: 0.9rem;">Niveau 3</span>
+                        Partie 1 : Reconnaître les signes
+                    </h3>
+                    <p style="color: #991b1b; font-size: 0.95rem; margin-bottom: 1rem;">
+                        Ressentir ces symptômes à ce niveau est normal, c'est une réponse naturelle du corps et de l'esprit face à un stress prolongé.
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; color: #b91c1c;">
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Fatigue extrême (même après repos)</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Perte totale de motivation</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Détachement du travail</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Sentiment d'échec ou d'inutilité</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Troubles du sommeil</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Irritabilité ou repli sur soi</li>
+                        <li style="display: flex; align-items: center; gap: 8px;">🔴 Difficulté à prendre des décisions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Partie 2 : Wizard -->
+            <div class="n3-wizard-card">
+                <div class="n3-wizard-header">
+                    <h3 class="n3-wizard-title">Gère tes émotions 😐</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Partie 2</div>
+                </div>
+                <div class="n3-wizard-body">
+                    
+                    <!-- ÉTAPE 1 -->
+                    <div class="n3-step-container active" id="cp-n3-step-1">
+                        <h4 class="n3-step-title">1️⃣ Étape 1 : Identification</h4>
+                        <p style="color: #0f766e; margin-bottom: 1.5rem; font-weight: 600;">Chnowa tahess taw ? (Choisis une émotion)</p>
+                        
+                        <div class="n3-emotion-grid">
+                            <button class="n3-emotion-btn cp-n3-emotion-btn" data-emotion="Tristesse" onclick="selectCPN3Emotion('Tristesse')">
+                                <span class="emoji">😭</span>
+                                Tristesse
+                            </button>
+                            <button class="n3-emotion-btn cp-n3-emotion-btn" data-emotion="Colère" onclick="selectCPN3Emotion('Colère')">
+                                <span class="emoji">😡</span>
+                                Colère
+                            </button>
+                            <button class="n3-emotion-btn cp-n3-emotion-btn" data-emotion="Fatigue" onclick="selectCPN3Emotion('Fatigue')">
+                                <span class="emoji">😴</span>
+                                Fatigue
+                            </button>
+                            <button class="n3-emotion-btn cp-n3-emotion-btn" data-emotion="Vide" onclick="selectCPN3Emotion('Vide')">
+                                <span class="emoji">😶</span>
+                                Vide
+                            </button>
+                        </div>
+
+                        <div class="n2-intensity-section" id="cp-n3-intensity-section" style="display: none; margin-top: 1.5rem;">
+                            <div class="n2-intensity-label">
+                                <span>Intensité de l'émotion :</span>
+                                <span id="cp-n3-intensity-val" style="font-weight: 800; color: #0d9488;">8 / 10</span>
+                            </div>
+                            <div class="n2-intensity-grid" id="cp-n3-intensity-grid">
+                                <!-- Dynamically generated 1 to 10 -->
+                            </div>
+                            <button class="n3-btn-next" onclick="nextCPN3Step(2)" style="margin-top: 1.5rem;">
+                                Continuer ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ÉTAPE 2 -->
+                    <div class="n3-step-container" id="cp-n3-step-2">
+                        <h4 class="n3-step-title">2️⃣ Étape 2 : Expression</h4>
+                        <textarea id="cp-n3-expression-input" class="n3-textarea" placeholder="Écris ce que tu ressens ici... Ne garde rien pour toi." oninput="updateCPN3State()"></textarea>
+                        
+                        <ul class="n3-bullet-list">
+                            <li>✔️ Parler à quelqu'un de confiance</li>
+                            <li>✔️ Exprimer sans aucun jugement</li>
+                        </ul>
+
+                        <button class="n3-btn-next" onclick="nextCPN3Step(3)">
+                            Faire sortir la pression ➔
+                        </button>
+                    </div>
+
+                    <!-- ÉTAPE 3 -->
+                    <div class="n3-step-container" id="cp-n3-step-3">
+                        <h4 class="n3-step-title">3️⃣ Étape 3 : Résolution (Simplifiée)</h4>
+                        <div style="background: #fef3c7; color: #b45309; padding: 0.8rem 1rem; border-radius: 12px; font-weight: 700; margin-bottom: 1.5rem; display: inline-block;">
+                            ⚠️ Version simplifiée pour ne pas te surcharger
+                        </div>
+
+                        <div class="n3-problem-grid">
+                            <div class="n3-problem-col">
+                                <h5>🔴 Identifie UN seul problème :</h5>
+                                <input type="text" id="cp-n3-problem-input" class="n3-input" placeholder="Ex: surcharge de travail..." oninput="updateCPN3State()">
+                            </div>
+                            <div class="n3-problem-col">
+                                <h5>🟢 Choisis UNE solution simple :</h5>
+                                <input type="text" id="cp-n3-solution-input" class="n3-input" placeholder="Ex: faire 1 tâche seulement..." oninput="updateCPN3State()">
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-bottom: 1.5rem; color: #0f766e; font-weight: 600;">
+                            ✔️ Affrontez doucement vos problèmes. Passe à l'action doucement.
+                        </div>
+
+                        <button class="n3-btn-next" onclick="submitCPN3Exercise()">
+                            Enregistrer l'exercice ➔
+                        </button>
+                    </div>
+
+                    <!-- SUCCESS -->
+                    <div class="n3-step-container" id="cp-n3-step-success">
+                        <div style="text-align: center; padding: 2rem 0;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🌟</div>
+                            <h3 style="color: #0d9488; margin-bottom: 1rem;">Bravo, c'est un excellent premier pas !</h3>
+                            <p style="color: #475569; margin-bottom: 2rem;">Prenez soin de vous. N'oubliez pas que demander de l'aide est une force.</p>
+                            <div class="n2-progress-banner" style="background: #f0fdfa; border-color: #5eead4; color: #0f766e;">
+                                Exercice enregistré avec succès ✨
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -1491,6 +1832,147 @@
             }
         }
 
+        // ===================== NIVEAU 3 COGNITIVE WIZARD =====================
+        let n3State = {
+            emotion: '',
+            intensity: 8,
+            expression: '',
+            problem: '',
+            solution: ''
+        };
+
+        function selectCPN3Emotion(eName) {
+            n3State.emotion = eName;
+            
+            document.querySelectorAll('.cp-n3-emotion-btn').forEach(btn => {
+                const emo = btn.getAttribute('data-emotion');
+                btn.classList.toggle('selected', emo === eName);
+            });
+
+            const sec = document.getElementById('cp-n3-intensity-section');
+            if (sec) sec.style.display = 'block';
+            
+            renderCPN3IntensityGrid();
+            saveCPN3State();
+        }
+
+        function renderCPN3IntensityGrid() {
+            const grid = document.getElementById('cp-n3-intensity-grid');
+            if (!grid) return;
+            let html = '';
+            for (let i = 1; i <= 10; i++) {
+                const sel = (i === n3State.intensity) ? 'selected' : '';
+                html += `<button class="n2-intensity-btn ${sel}" onclick="setCPN3Intensity(${i})">${i}</button>`;
+            }
+            grid.innerHTML = html;
+            
+            const valLabel = document.getElementById('cp-n3-intensity-val');
+            if (valLabel) valLabel.textContent = n3State.intensity + ' / 10';
+        }
+
+        function setCPN3Intensity(val) {
+            n3State.intensity = val;
+            renderCPN3IntensityGrid();
+            saveCPN3State();
+        }
+
+        function nextCPN3Step(stepNum) {
+            if (stepNum === 2) {
+                if (!n3State.emotion) {
+                    showNotification("Veuillez sélectionner une émotion.", "error");
+                    return;
+                }
+            } else if (stepNum === 3) {
+                if (!n3State.expression.trim()) {
+                    showNotification("Veuillez exprimer ce que vous ressentez.", "error");
+                    return;
+                }
+            }
+
+            document.querySelectorAll('.n3-step-container').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('cp-n3-step-' + stepNum);
+            if (target) target.classList.add('active');
+        }
+
+        function updateCPN3State() {
+            const exp = document.getElementById('cp-n3-expression-input');
+            const prob = document.getElementById('cp-n3-problem-input');
+            const sol = document.getElementById('cp-n3-solution-input');
+
+            if (exp) n3State.expression = exp.value;
+            if (prob) n3State.problem = prob.value;
+            if (sol) n3State.solution = sol.value;
+
+            saveCPN3State();
+        }
+
+        function saveCPN3State() {
+            localStorage.setItem('rahti_emotion_exercise', JSON.stringify(n3State));
+        }
+
+        function loadCPN3State() {
+            const saved = localStorage.getItem('rahti_emotion_exercise');
+            if (saved) {
+                try {
+                    n3State = JSON.parse(saved);
+                    
+                    const exp = document.getElementById('cp-n3-expression-input');
+                    const prob = document.getElementById('cp-n3-problem-input');
+                    const sol = document.getElementById('cp-n3-solution-input');
+
+                    if (exp) exp.value = n3State.expression || '';
+                    if (prob) prob.value = n3State.problem || '';
+                    if (sol) sol.value = n3State.solution || '';
+
+                    if (n3State.emotion) {
+                        selectCPN3Emotion(n3State.emotion);
+                    }
+                    
+                    renderCPN3IntensityGrid();
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                renderCPN3IntensityGrid();
+            }
+        }
+
+        async function submitCPN3Exercise() {
+            const eName = n3State.emotion;
+            const exp = n3State.expression.trim();
+            const prob = n3State.problem.trim();
+            const sol = n3State.solution.trim();
+
+            if (!eName || !exp || !prob || !sol) {
+                showNotification("Veuillez remplir toutes les étapes (problème et solution inclus).", "error");
+                return;
+            }
+
+            const emojiMap = { Tristesse: '😭', Colère: '😡', Fatigue: '😴', Vide: '😶' };
+            const formattedEmotion = `${eName} ${emojiMap[eName] || ''} (${n3State.intensity}/10)`;
+            const formattedNewPensee = \`Problème : ${prob} | Solution : ${sol}\`;
+
+            try {
+                const resp = await fetch('/api/user/save-exercise', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pensee: exp, emotion: formattedEmotion, newPensee: formattedNewPensee })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    document.querySelectorAll('.n3-step-container').forEach(el => el.classList.remove('active'));
+                    const succ = document.getElementById('cp-n3-step-success');
+                    if (succ) succ.classList.add('active');
+                    showNotification("Exercice enregistré avec succès !");
+                } else {
+                    showNotification("Erreur lors de l'enregistrement : " + data.message, "error");
+                }
+            } catch (error) {
+                console.error(error);
+                showNotification("Erreur de connexion lors de l'enregistrement", "error");
+            }
+        }
+
         // ===================== KANBAN STATE =====================
         let kanbanTasks = { urgente: [], importante: [], secondaire: [] };
 
@@ -1663,6 +2145,7 @@
             loadPlannerState();
             loadKanbanState();
             loadN2State();
+            loadCPN3State();
         }
 
         function tryLocalStorageFallback() {
