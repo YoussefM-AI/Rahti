@@ -1,141 +1,351 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test - Rahti</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; color: #2b2d42; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; opacity: 0; animation: fadeIn 0.8s forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .test-container { max-width: 800px; width: 90%; margin: 2rem auto; }
-        
-        .test-card { 
-            background: white; padding: 3rem; border-radius: 24px; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.06); 
-            text-align: center; position: relative; overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.02);
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #2b2d42;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .test-container {
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
+        }
+
+        .test-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.02);
         }
 
         .test-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
             background: linear-gradient(90deg, #0077b6, #3fbad9);
         }
 
-        h2 { color: #2b2d42; font-size: 1.8rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: -0.5px; }
+        h2 {
+            color: #2b2d42;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
 
-        .progress-section { margin-bottom: 3rem; text-align: left; }
-        .progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
-        .progress-label span { font-weight: 700; color: #0077b6; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .progress-track { height: 8px; background: #e9ecef; border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #0077b6, #3fbad9); transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .progress-section {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
 
-        #question { font-size: 1.4rem; font-weight: 700; margin-bottom: 2.5rem; color: #1a1c1e; min-height: 4.2rem; line-height: 1.4; }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
 
-        .choices-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+        .progress-label span {
+            font-weight: 700;
+            color: #0077b6;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0077b6, #3fbad9);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #question {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: #1a1c1e;
+            min-height: 4.2rem;
+            line-height: 1.4;
+        }
+
+        .choices-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
         .choice {
-            padding: 1.2rem 1.5rem; border-radius: 12px; background: #fafbfc;
-            cursor: pointer; transition: all 0.25s ease; border: 2px solid #edf2f7;
-            font-weight: 600; text-align: left; position: relative; color: #4a5568;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            background: #fafbfc;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 2px solid #edf2f7;
+            font-weight: 600;
+            text-align: left;
+            position: relative;
+            color: #4a5568;
         }
-        .choice:hover { background: #f1f8ff; border-color: #3fbad9; transform: translateX(5px); }
-        .choice.selected { background: #e1f5fe !important; border-color: #0077b6 !important; color: #0077b6; box-shadow: 0 4px 12px rgba(0, 119, 182, 0.1); }
-        .choice.selected::after { content: '✓'; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-weight: 800; }
 
-        .btn-next { 
-            width: 100%; padding: 1.2rem; background: #0077b6; color: white; border: none; 
-            border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s; 
-            font-size: 1.1rem; letter-spacing: 0.5px; box-shadow: 0 10px 20px rgba(0, 119, 182, 0.2);
+        .choice:hover {
+            background: #f1f8ff;
+            border-color: #3fbad9;
+            transform: translateX(5px);
         }
-        .btn-next:hover { background: #03045e; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(3, 4, 94, 0.3); }
-        .btn-next:active { transform: translateY(-1px); }
+
+        .choice.selected {
+            background: #e1f5fe !important;
+            border-color: #0077b6 !important;
+            color: #0077b6;
+            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.1);
+        }
+
+        .choice.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 800;
+        }
+
+        .btn-next {
+            width: 100%;
+            padding: 1.2rem;
+            background: #0077b6;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 20px rgba(0, 119, 182, 0.2);
+        }
+
+        .btn-next:hover {
+            background: #03045e;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(3, 4, 94, 0.3);
+        }
+
+        .btn-next:active {
+            transform: translateY(-1px);
+        }
 
         /* Info Button & Modal */
-        .info-tab { 
-            position: absolute; top: 6rem; right: 2rem; 
-            background: #fff; border: 2px solid #edf2f7; color: #718096;
-            width: 40px; height: 40px; border-radius: 12px; 
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; cursor: pointer; transition: all 0.3s;
+        .info-tab {
+            position: absolute;
+            top: 6rem;
+            right: 2rem;
+            background: #fff;
+            border: 2px solid #edf2f7;
+            color: #718096;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .info-tab:hover { border-color: #3fbad9; color: #3fbad9; transform: scale(1.05); }
-        
+
+        .info-tab:hover {
+            border-color: #3fbad9;
+            color: #3fbad9;
+            transform: scale(1.05);
+        }
+
         #info-modal {
-            display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-            background:rgba(26, 28, 30, 0.6); z-index:10000; backdrop-filter:blur(8px);
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 28, 30, 0.6);
+            z-index: 10000;
+            backdrop-filter: blur(8px);
             animation: fadeIn 0.3s forwards;
         }
+
         .modal-body {
-            background:white; max-width:600px; width:90%; position:relative;
-            margin:10vh auto; border-radius:24px; padding:3rem;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            margin: 10vh auto;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
         }
-        .modal-title { font-size: 1.8rem; font-weight: 800; color: #0077b6; margin-bottom: 2rem; letter-spacing: -0.5px; }
-        .modal-close { position:absolute; top:2rem; right:2rem; font-size:1.8rem; cursor:pointer; color:#a0aec0; transition: 0.2s; }
-        .modal-close:hover { color: #2d3748; }
-        .info-section { margin-bottom: 2rem; }
-        .info-section h3 { font-size: 1.2rem; color: #2d3748; margin-bottom: 1rem; font-weight: 700; }
-        .info-list { color: #4a5568; font-size: 1rem; line-height: 1.6; }
-        .level-tag { display:inline-block; padding: 0.3rem 0.8rem; border-radius: 8px; font-weight: 700; color: white; margin-right: 0.5rem; font-size: 0.85rem; }
-        
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0077b6;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #2d3748;
+        }
+
+        .info-section {
+            margin-bottom: 2rem;
+        }
+
+        .info-section h3 {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .info-list {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .level-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            color: white;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+
         /* Interactive features styles */
         .day-field textarea:focus {
             background: #f8fafc;
         }
+
         .kanban-col input:focus {
             outline: none;
             border-color: #0077b6 !important;
             box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
         }
+
         .btn-img-action {
             transition: all 0.2s ease;
         }
+
         .btn-img-action:hover {
             transform: translateY(-2px);
             opacity: 0.9;
         }
+
         .btn-img-action:active {
             transform: translateY(0);
         }
     </style>
 </head>
+
 <body style="padding-top: 0;">
     <!-- Site Header -->
-    <header style="width:100%; padding:1rem 4rem; display:flex; justify-content:space-between; align-items:center; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.05); box-sizing:border-box; margin-bottom: 2rem;">
+    <header
+        style="width:100%; padding:1rem 4rem; display:flex; justify-content:space-between; align-items:center; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.05); box-sizing:border-box; margin-bottom: 2rem;">
         <div class="header-left">
-            <a href="home.html" style="text-decoration: none; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, #0077b6, #00b4d8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Rahti</a>
+            <a href="home.html"
+                style="text-decoration: none; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, #0077b6, #00b4d8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Rahti</a>
         </div>
         <a href="dashboard.html" style="text-decoration:none; color:#666; font-weight:600;">← Retour au Dashboard</a>
     </header>
-    
+
     <div class="info-tab" onclick="showInfo()" title="Comprendre le test">i</div>
 
     <div id="info-modal" onclick="if(event.target === this) closeInfo()">
         <div class="modal-body">
             <span class="modal-close" onclick="closeInfo()">×</span>
             <div class="modal-title">Comprendre votre score</div>
-            
+
             <div class="info-section">
                 <h3>Calcul du Score</h3>
-                <p class="info-list">Le test comporte 22 questions basées sur l'inventaire de Maslach (MBI). Chaque réponse vaut de <strong>0 à 4 points</strong>.</p>
-                <p class="info-list" style="font-size: 0.85rem; background: #f8f9fa; padding: 0.8rem; border-radius: 8px; margin-top: 10px;">
-                    💡 <em>Note : Les 7 dernières questions mesurent l'accomplissement personnel ; le calcul est donc inversé pour ces questions.</em>
+                <p class="info-list">Le test comporte 22 questions basées sur l'inventaire de Maslach (MBI). Chaque
+                    réponse vaut de <strong>0 à 4 points</strong>.</p>
+                <p class="info-list"
+                    style="font-size: 0.85rem; background: #f8f9fa; padding: 0.8rem; border-radius: 8px; margin-top: 10px;">
+                    💡 <em>Note : Les 7 dernières questions mesurent l'accomplissement personnel ; le calcul est donc
+                        inversé pour ces questions.</em>
                 </p>
             </div>
 
             <div class="info-section">
                 <h3>Paliers de Résultat</h3>
                 <ul class="info-list" style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 0.5rem;"><span class="level-tag" style="background: #2a9d8f;">0 - 29</span> <strong>Faible</strong> : Équilibre préservé.</li>
-                    <li style="margin-bottom: 0.5rem;"><span class="level-tag" style="background: #f4a261;">30 - 59</span> <strong>Modéré</strong> : Signes de fatigue réelle.</li>
-                    <li><span class="level-tag" style="background: #e63946;">60 - 88</span> <strong>Élevé</strong> : Risque de burnout critique.</li>
+                    <li style="margin-bottom: 0.5rem;"><span class="level-tag" style="background: #2a9d8f;">0 -
+                            29</span> <strong>Faible</strong> : Équilibre préservé.</li>
+                    <li style="margin-bottom: 0.5rem;"><span class="level-tag" style="background: #f4a261;">30 -
+                            59</span> <strong>Modéré</strong> : Signes de fatigue réelle.</li>
+                    <li><span class="level-tag" style="background: #e63946;">60 - 88</span> <strong>Élevé</strong> :
+                        Risque de burnout critique.</li>
                 </ul>
             </div>
 
             <div class="info-section" style="margin-bottom: 0;">
                 <h3>Les 3 Dimensions</h3>
-                <p class="info-list">Votre score global analyse : l'<strong>Épuisement Émotionnel</strong>,  <strong>Dépersonnalisation</strong> et l'<strong>Accomplissement Personnel</strong>.</p>
+                <p class="info-list">Votre score global analyse : l'<strong>Épuisement Émotionnel</strong>,
+                    <strong>Dépersonnalisation</strong> et l'<strong>Accomplissement Personnel</strong>.</p>
             </div>
         </div>
     </div>
@@ -161,180 +371,180 @@
     <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
 
     <script>
-    function showNotification(message, type = 'success') {
-        const container = document.getElementById('notification-container');
-        const toast = document.createElement('div');
-        const bgColor = type === 'success' ? '#2a9d8f' : (type === 'error' ? '#e63946' : '#0077b6');
-        
-        toast.style.cssText = `
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('notification-container');
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? '#2a9d8f' : (type === 'error' ? '#e63946' : '#0077b6');
+
+            toast.style.cssText = `
             background: ${bgColor}; color: white; padding: 1.2rem 2rem; border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 12px; font-weight: 700;
             transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex; align-items: center; gap: 12px;
         `;
-        
-        const icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️');
-        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-        
-        container.appendChild(toast);
-        setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
-        setTimeout(() => {
-            toast.style.transform = 'translateX(120%)';
-            setTimeout(() => toast.remove(), 400);
-        }, 4000);
-    }
 
-    async function checkAuth() {
-        try {
-            const response = await fetch('/api/user');
-            const data = await response.json();
-            if (!data.success) window.location.href = 'connexion.html';
-        } catch (error) { window.location.href = 'connexion.html'; }
-    }
-    checkAuth();
+            const icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️');
+            toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
 
-    const questions = [
-        "Je me sens émotionnellement épuisé par mon travail",
-        "Je me sens à bout de forces à la fin de ma journée de travail",
-        "Je me sens fatigué lorsque je me lève le matin",
-        "Travailler avec des gens tout au long de la journée est pour moi un effort",
-        "Je sens que je craque à cause de mon travail",
-        "Je me sens frustré par mon travail",
-        "Je sens que je travaille trop dur",
-        "Travailler en contact direct avec les gens me stresse trop",
-        "J'ai l'impression de traiter certains patients comme s'ils étaient des objets",
-        "Je suis devenu plus insensible aux gens depuis que j'ai ce travail",
-        "Je crains que ce travail ne me durcisse émotionnellement",
-        "Je ne me soucie pas vraiment de ce qui arrive à certains patients",
-        "J'ai l'impression que les patients me reprochent certains de leurs problèmes",
-        "Dans mon travail, je traite les problèmes émotionnels très calmement",
-        "Je ressens une fatigue intense",
-        "Je peux comprendre facilement ce que mes patients ressentent",
-        "Je m'occupe très efficacement des problèmes de mes patients",
-        "J'ai l'impression d'influencer positivement la vie d'autres gens",
-        "Je me sens plein d'énergie",
-        "J'arrive facilement à créer une atmosphère détendue avec mes patients",
-        "Je me sens ragaillardi après avoir travaillé avec mes patients",
-        "J'ai accompli beaucoup de choses de valeur dans ce travail"
-    ];
-
-    const options = [
-        {txt:"Jamais", val:0},
-        {txt:"Rarement", val:1},
-        {txt:"Parfois", val:2},
-        {txt:"Souvent", val:3},
-        {txt:"Toujours", val:4}
-    ];
-
-    let currentIndex = 0;
-    let totalScore = 0;
-    let selectedOptionIdx = null;
-    let userAnswers = [];
-
-    function showQuestion(){
-        document.getElementById("question").innerText = questions[currentIndex];
-        
-        // Update Progress UI
-        const progress = ((currentIndex) / questions.length) * 100;
-        document.getElementById("progress-bar").style.width = `${progress}%`;
-        document.getElementById("progress-text").innerText = `Question ${currentIndex + 1} / ${questions.length}`;
-
-        let html = "";
-        options.forEach((opt, i) => {
-            html += `<div class="choice" onclick="select(${i})">${opt.txt}</div>`;
-        });
-        document.getElementById("choices").innerHTML = html;
-        selectedOptionIdx = null;
-    }
-
-    function select(i){
-        selectedOptionIdx = i;
-        document.querySelectorAll(".choice").forEach((e, idx) => {
-            if(idx === i) e.classList.add("selected");
-            else e.classList.remove("selected");
-        });
-    }
-
-    function next(){
-        if(selectedOptionIdx === null) {
-            showNotification("Veuillez choisir une réponse !", "error");
-            return;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(120%)';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
         }
 
-        let val = options[selectedOptionIdx].val;
-        userAnswers.push(selectedOptionIdx);
-
-        // MBI Scoring logic (questions 16-22 / index 15-21 are accomplishment, reverse scored for burnout total)
-        let scoringVal = val;
-        if(currentIndex >= 15) {
-            scoringVal = 4 - val;
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/user');
+                const data = await response.json();
+                if (!data.success) window.location.href = 'connexion.html';
+            } catch (error) { window.location.href = 'connexion.html'; }
         }
+        checkAuth();
 
-        totalScore += scoringVal;
-        currentIndex++;
+        const questions = [
+            "Je me sens émotionnellement épuisé par mon travail",
+            "Je me sens à bout de forces à la fin de ma journée de travail",
+            "Je me sens fatigué lorsque je me lève le matin",
+            "Travailler avec des gens tout au long de la journée est pour moi un effort",
+            "Je sens que je craque à cause de mon travail",
+            "Je me sens frustré par mon travail",
+            "Je sens que je travaille trop dur",
+            "Travailler en contact direct avec les gens me stresse trop",
+            "J'ai l'impression de traiter certains patients comme s'ils étaient des objets",
+            "Je suis devenu plus insensible aux gens depuis que j'ai ce travail",
+            "Je crains que ce travail ne me durcisse émotionnellement",
+            "Je ne me soucie pas vraiment de ce qui arrive à certains patients",
+            "J'ai l'impression que les patients me reprochent certains de leurs problèmes",
+            "Dans mon travail, je traite les problèmes émotionnels très calmement",
+            "Je ressens une fatigue intense",
+            "Je peux comprendre facilement ce que mes patients ressentent",
+            "Je m'occupe très efficacement des problèmes de mes patients",
+            "J'ai l'impression d'influencer positivement la vie d'autres gens",
+            "Je me sens plein d'énergie",
+            "J'arrive facilement à créer une atmosphère détendue avec mes patients",
+            "Je me sens ragaillardi après avoir travaillé avec mes patients",
+            "J'ai accompli beaucoup de choses de valeur dans ce travail"
+        ];
 
-        if(currentIndex < questions.length){
-            showQuestion();
-        } else {
-            showResult();
-        }
-    }
+        const options = [
+            { txt: "Jamais", val: 0 },
+            { txt: "Rarement", val: 1 },
+            { txt: "Parfois", val: 2 },
+            { txt: "Souvent", val: 3 },
+            { txt: "Toujours", val: 4 }
+        ];
 
-    async function showResult(){
-        document.getElementById("progress-bar").style.width = `100%`;
-        
-        let category = "";
-        let color = "";
-        if(totalScore <= 29){
-            category = "🟢 Épuisement faible";
-            color = "#2a9d8f";
-        } else if(totalScore <= 59){
-            category = "🟠 Épuisement modéré";
-            color = "#f4a261";
-        } else {
-            category = "🔴 Épuisement élevé";
-            color = "#e63946";
-        }
+        let currentIndex = 0;
+        let totalScore = 0;
+        let selectedOptionIdx = null;
+        let userAnswers = [];
 
-        // Save to server
-        try {
-            const resp = await fetch('/api/save-test', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ score: totalScore, category, answers: userAnswers })
+        function showQuestion() {
+            document.getElementById("question").innerText = questions[currentIndex];
+
+            // Update Progress UI
+            const progress = ((currentIndex) / questions.length) * 100;
+            document.getElementById("progress-bar").style.width = `${progress}%`;
+            document.getElementById("progress-text").innerText = `Question ${currentIndex + 1} / ${questions.length}`;
+
+            let html = "";
+            options.forEach((opt, i) => {
+                html += `<div class="choice" onclick="select(${i})">${opt.txt}</div>`;
             });
-            const data = await resp.json();
-            if (data.success) showNotification("Test enregistré avec succès !");
-        } catch (error) {
-            showNotification("Erreur lors de l'enregistrement", "error");
+            document.getElementById("choices").innerHTML = html;
+            selectedOptionIdx = null;
         }
 
-        // Detailed dimensions for display
-        const exhaustion = userAnswers.slice(0, 8).reduce((a, b) => a + b, 0);
-        const detachment = userAnswers.slice(8, 15).reduce((a, b) => a + b, 0);
-        const accomplishment = userAnswers.slice(15, 22).reduce((a, b) => a + (4 - b), 0);
+        function select(i) {
+            selectedOptionIdx = i;
+            document.querySelectorAll(".choice").forEach((e, idx) => {
+                if (idx === i) e.classList.add("selected");
+                else e.classList.remove("selected");
+            });
+        }
 
-        const ADVICE = {
-            low: {
-                title: "🟢 Stress léger",
-                desc: "Votre niveau d'épuisement est bas. C'est le moment idéal pour renforcer vos outils de prévention et maintenir votre équilibre.",
-                tips: []
-            },
-            mod: {
-                title: "🟠 Stress modéré",
-                desc: "Des signes de fatigue chronique et de surcharge mentale apparaissent. Un ajustement de vos habitudes est nécessaire.",
-                tips: []
-            },
-            high: {
-                title: "🔴 Burn-out élevé",
-                desc: "Votre état est critique. La priorité absolue est votre santé et la mise en place d'un accompagnement adapté.",
-                tips: []
+        function next() {
+            if (selectedOptionIdx === null) {
+                showNotification("Veuillez choisir une réponse !", "error");
+                return;
             }
-        };
 
-        let currentAdvice = totalScore <= 29 ? ADVICE.low : (totalScore <= 59 ? ADVICE.mod : ADVICE.high);
+            let val = options[selectedOptionIdx].val;
+            userAnswers.push(selectedOptionIdx);
 
-        document.getElementById("app").innerHTML = `
+            // MBI Scoring logic (questions 16-22 / index 15-21 are accomplishment, reverse scored for burnout total)
+            let scoringVal = val;
+            if (currentIndex >= 15) {
+                scoringVal = 4 - val;
+            }
+
+            totalScore += scoringVal;
+            currentIndex++;
+
+            if (currentIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        async function showResult() {
+            document.getElementById("progress-bar").style.width = `100%`;
+
+            let category = "";
+            let color = "";
+            if (totalScore <= 29) {
+                category = "🟢 Épuisement faible";
+                color = "#2a9d8f";
+            } else if (totalScore <= 59) {
+                category = "🟠 Épuisement modéré";
+                color = "#f4a261";
+            } else {
+                category = "🔴 Épuisement élevé";
+                color = "#e63946";
+            }
+
+            // Save to server
+            try {
+                const resp = await fetch('/api/save-test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ score: totalScore, category, answers: userAnswers })
+                });
+                const data = await resp.json();
+                if (data.success) showNotification("Test enregistré avec succès !");
+            } catch (error) {
+                showNotification("Erreur lors de l'enregistrement", "error");
+            }
+
+            // Detailed dimensions for display
+            const exhaustion = userAnswers.slice(0, 8).reduce((a, b) => a + b, 0);
+            const detachment = userAnswers.slice(8, 15).reduce((a, b) => a + b, 0);
+            const accomplishment = userAnswers.slice(15, 22).reduce((a, b) => a + (4 - b), 0);
+
+            const ADVICE = {
+                low: {
+                    title: "🟢 Stress léger",
+                    desc: "Votre niveau d'épuisement est bas. C'est le moment idéal pour renforcer vos outils de prévention et maintenir votre équilibre.",
+                    tips: []
+                },
+                mod: {
+                    title: "🟠 Stress modéré",
+                    desc: "Des signes de fatigue chronique et de surcharge mentale apparaissent. Un ajustement de vos habitudes est nécessaire.",
+                    tips: []
+                },
+                high: {
+                    title: "🔴 Burn-out élevé",
+                    desc: "Votre état est critique. La priorité absolue est votre santé et la mise en place d'un accompagnement adapté.",
+                    tips: []
+                }
+            };
+
+            let currentAdvice = totalScore <= 29 ? ADVICE.low : (totalScore <= 59 ? ADVICE.mod : ADVICE.high);
+
+            document.getElementById("app").innerHTML = `
             <div style="text-align: left;">
                 <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Résultat de l'Évaluation</h2>
                 
@@ -428,7 +638,7 @@
                             </div>
                             
                             <p style="background: #f0fdf4; border-left: 4px solid #2a9d8f; padding: 1.2rem; border-radius: 0 12px 12px 0; color: #1e4d3a; font-style: italic; font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
-                                "Nous mettons à votre disposition des plannings hebdomadaires et mensuels afin de vous accompagner dans l'organisation de vos activités et la gestion de votre équilibre de vie."
+                                "Nous mettons à votre disposition des plannings hebdomadaires afin de vous accompagner dans l'organisation de vos activités et la gestion de votre équilibre de vie."
                             </p>
                             
                             <!-- Image HD Planning -->
@@ -504,6 +714,10 @@
                             <!-- Image HD Priorité des Tâches -->
                             <div class="image-preview-container" style="text-align: center; margin-bottom: 2.5rem; background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px solid #edf2f7;">
                                 <img src="taches_priorite.jpg" alt="Classement des tâches selon leur priorité" style="max-width: 100%; max-height: 500px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">
+                                <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem;">
+                                    <a href="taches_priorite.jpg" download="taches_priorite.jpg" class="btn-img-action" style="text-decoration: none; background: #2a9d8f; color: white; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">📥 Télécharger la fiche</a>
+                                    <button onclick="window.print()" class="btn-img-action" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 6px;">🖨️ Imprimer</button>
+                                </div>
                             </div>
 
                             <!-- Kanban Interactif -->
@@ -715,183 +929,184 @@
                 </div>
             </div>
         `;
-        
-        if(totalScore <= 29) {
-            setTimeout(() => {
-                window.loadTasksState();
-                window.loadPlannerState();
-            }, 10);
+
+            if (totalScore <= 29) {
+                setTimeout(() => {
+                    window.loadTasksState();
+                    window.loadPlannerState();
+                }, 10);
+            }
         }
-    }
 
-    // Global state for Level 1 interactive tasks board
-    window.kanbanTasks = {
-        urgente: [],
-        importante: [],
-        secondaire: []
-    };
+        // Global state for Level 1 interactive tasks board
+        window.kanbanTasks = {
+            urgente: [],
+            importante: [],
+            secondaire: []
+        };
 
-    window.addTask = function(column) {
-        const input = document.getElementById('input-' + column);
-        if(!input) return;
-        const text = input.value.trim();
-        if(!text) return;
-        
-        window.kanbanTasks[column].push(text);
-        input.value = '';
-        
-        window.renderTasks(column);
-        window.saveTasksState();
-    };
+        window.addTask = function (column) {
+            const input = document.getElementById('input-' + column);
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
 
-    window.deleteTask = function(column, index) {
-        window.kanbanTasks[column].splice(index, 1);
-        window.renderTasks(column);
-        window.saveTasksState();
-    };
+            window.kanbanTasks[column].push(text);
+            input.value = '';
 
-    window.renderTasks = function(column) {
-        const list = document.getElementById('list-' + column);
-        const count = document.getElementById('count-' + column);
-        if(!list || !count) return;
-        const tasks = window.kanbanTasks[column];
-        
-        count.innerText = tasks.length;
-        
-        let html = '';
-        tasks.forEach((task, idx) => {
-            html += `
+            window.renderTasks(column);
+            window.saveTasksState();
+        };
+
+        window.deleteTask = function (column, index) {
+            window.kanbanTasks[column].splice(index, 1);
+            window.renderTasks(column);
+            window.saveTasksState();
+        };
+
+        window.renderTasks = function (column) {
+            const list = document.getElementById('list-' + column);
+            const count = document.getElementById('count-' + column);
+            if (!list || !count) return;
+            const tasks = window.kanbanTasks[column];
+
+            count.innerText = tasks.length;
+
+            let html = '';
+            tasks.forEach((task, idx) => {
+                html += `
                 <div style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.6rem 0.8rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); animation: fadeIn 0.2s forwards;">
                     <span style="font-size: 0.9rem; color: #334155; font-weight: 600; word-break: break-word;">${task}</span>
                     <button onclick="window.deleteTask('${column}', ${idx})" style="background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 0.2rem; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">×</button>
                 </div>
             `;
-        });
-        list.innerHTML = html || '<div style="color: #94a3b8; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 1.5rem;">Aucune tâche</div>';
-    };
+            });
+            list.innerHTML = html || '<div style="color: #94a3b8; font-size: 0.85rem; font-style: italic; text-align: center; margin-top: 1.5rem;">Aucune tâche</div>';
+        };
 
-    window.saveTasksState = function() {
-        localStorage.setItem('rahti_kanban_tasks', JSON.stringify(window.kanbanTasks));
-    };
+        window.saveTasksState = function () {
+            localStorage.setItem('rahti_kanban_tasks', JSON.stringify(window.kanbanTasks));
+        };
 
-    window.loadTasksState = function() {
-        const saved = localStorage.getItem('rahti_kanban_tasks');
-        if (saved) {
-            try {
-                window.kanbanTasks = JSON.parse(saved);
-            } catch(e) {
-                console.error(e);
+        window.loadTasksState = function () {
+            const saved = localStorage.getItem('rahti_kanban_tasks');
+            if (saved) {
+                try {
+                    window.kanbanTasks = JSON.parse(saved);
+                } catch (e) {
+                    console.error(e);
+                }
             }
-        }
-        window.renderTasks('urgente');
-        window.renderTasks('importante');
-        window.renderTasks('secondaire');
-    };
+            window.renderTasks('urgente');
+            window.renderTasks('importante');
+            window.renderTasks('secondaire');
+        };
 
-    window.savePlannerState = function() {
-        const plannerMonth = document.getElementById('planner-month');
-        const plannerWeek = document.getElementById('planner-week');
-        if(!plannerMonth || !plannerWeek) return;
-        
-        const planner = {
-            month: plannerMonth.value,
-            week: plannerWeek.value,
-            days: {
-                dimanche: document.getElementById('day-dimanche').value,
-                lundi: document.getElementById('day-lundi').value,
-                mardi: document.getElementById('day-mardi').value,
-                mercredi: document.getElementById('day-mercredi').value,
-                jeudi: document.getElementById('day-jeudi').value,
-                vendredi: document.getElementById('day-vendredi').value,
-                samedi: document.getElementById('day-samedi').value,
-                notes: document.getElementById('day-notes').value
+        window.savePlannerState = function () {
+            const plannerMonth = document.getElementById('planner-month');
+            const plannerWeek = document.getElementById('planner-week');
+            if (!plannerMonth || !plannerWeek) return;
+
+            const planner = {
+                month: plannerMonth.value,
+                week: plannerWeek.value,
+                days: {
+                    dimanche: document.getElementById('day-dimanche').value,
+                    lundi: document.getElementById('day-lundi').value,
+                    mardi: document.getElementById('day-mardi').value,
+                    mercredi: document.getElementById('day-mercredi').value,
+                    jeudi: document.getElementById('day-jeudi').value,
+                    vendredi: document.getElementById('day-vendredi').value,
+                    samedi: document.getElementById('day-samedi').value,
+                    notes: document.getElementById('day-notes').value
+                }
+            };
+            localStorage.setItem('rahti_planner_state', JSON.stringify(planner));
+        };
+
+        window.loadPlannerState = function () {
+            const saved = localStorage.getItem('rahti_planner_state');
+            if (saved) {
+                try {
+                    const planner = JSON.parse(saved);
+                    const plannerMonth = document.getElementById('planner-month');
+                    const plannerWeek = document.getElementById('planner-week');
+                    if (plannerMonth) plannerMonth.value = planner.month || '';
+                    if (plannerWeek) plannerWeek.value = planner.week || '';
+                    if (planner.days) {
+                        for (const day in planner.days) {
+                            const el = document.getElementById('day-' + day);
+                            if (el) el.value = planner.days[day] || '';
+                        }
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
         };
-        localStorage.setItem('rahti_planner_state', JSON.stringify(planner));
-    };
 
-    window.loadPlannerState = function() {
-        const saved = localStorage.getItem('rahti_planner_state');
-        if(saved) {
-            try {
-                const planner = JSON.parse(saved);
-                const plannerMonth = document.getElementById('planner-month');
-                const plannerWeek = document.getElementById('planner-week');
-                if(plannerMonth) plannerMonth.value = planner.month || '';
-                if(plannerWeek) plannerWeek.value = planner.week || '';
-                if(planner.days) {
-                    for(const day in planner.days) {
-                        const el = document.getElementById('day-' + day);
-                        if(el) el.value = planner.days[day] || '';
-                    }
-                }
-            } catch(e) {
-                console.error(e);
+        function simulateTest(score) {
+            // Mock MBI-22 answers to hit the target score logic
+            userAnswers = Array(22).fill(0);
+            if (score <= 10) {
+                // All zeros for EE/DP, all max for PA (reversed)
+                userAnswers = Array(22).fill(0).map((v, i) => i >= 15 ? 4 : 0);
+            } else if (score <= 45) {
+                // Mid values for all items
+                userAnswers = Array(22).fill(2);
+            } else {
+                // High values for EE/DP, low for PA (reversed)
+                userAnswers = Array(22).fill(5).map((v, i) => i >= 15 ? 0 : 5);
             }
-        }
-    };
 
-    function simulateTest(score) {
-        // Mock MBI-22 answers to hit the target score logic
-        userAnswers = Array(22).fill(0);
-        if (score <= 10) {
-            // All zeros for EE/DP, all max for PA (reversed)
-            userAnswers = Array(22).fill(0).map((v, i) => i >= 15 ? 4 : 0);
-        } else if (score <= 45) {
-            // Mid values for all items
-            userAnswers = Array(22).fill(2);
-        } else {
-            // High values for EE/DP, low for PA (reversed)
-            userAnswers = Array(22).fill(5).map((v, i) => i >= 15 ? 0 : 5);
+            // IMPORTANT: Update global totalScore so showResult uses correctly
+            const ee = userAnswers.slice(0, 8).reduce((a, b) => a + b, 0);
+            const dp = userAnswers.slice(8, 15).reduce((a, b) => a + b, 0);
+            const pa = userAnswers.slice(15, 22).reduce((a, b) => a + (4 - b), 0);
+            totalScore = ee + dp + pa;
+
+            showResult();
         }
 
-        // IMPORTANT: Update global totalScore so showResult uses correctly
-        const ee = userAnswers.slice(0, 8).reduce((a, b) => a + b, 0);
-        const dp = userAnswers.slice(8, 15).reduce((a, b) => a + b, 0);
-        const pa = userAnswers.slice(15, 22).reduce((a, b) => a + (4 - b), 0);
-        totalScore = ee + dp + pa;
+        async function resultExo() {
+            let p = document.getElementById("pensee").value;
+            let e = document.getElementById("emotion").value;
+            let np = document.getElementById("newPensee").value;
+            let res = document.getElementById("resultExo");
 
-        showResult();
-    }
+            if (!p || !np) {
+                showNotification("Veuillez remplir tous les champs de l'exercice", "error");
+                return;
+            }
 
-    async function resultExo() {
-        let p = document.getElementById("pensee").value;
-        let e = document.getElementById("emotion").value;
-        let np = document.getElementById("newPensee").value;
-        let res = document.getElementById("resultExo");
-        
-        if(!p || !np) {
-            showNotification("Veuillez remplir tous les champs de l'exercice", "error");
-            return;
-        }
-
-        // Send to server
-        try {
-            const resp = await fetch('/api/user/save-exercise', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pensee: p, emotion: e, newPensee: np })
-            });
-            const data = await resp.json();
-            if (data.success) {
-                showNotification("Exercice enregistré !");
-                res.style.display = "block";
-                res.innerHTML = `
+            // Send to server
+            try {
+                const resp = await fetch('/api/user/save-exercise', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pensee: p, emotion: e, newPensee: np })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    showNotification("Exercice enregistré !");
+                    res.style.display = "block";
+                    res.innerHTML = `
                     <p style="margin: 0 0 0.5rem 0;"><strong>Situation initiale :</strong> ${p} (${e})</p>
                     <p style="margin:0; color: #2a9d8f;"><strong>Nouvelle perspective :</strong> ${np}</p>
                 `;
-            } else {
-                showNotification("Erreur lors de l'enregistrement", "error");
+                } else {
+                    showNotification("Erreur lors de l'enregistrement", "error");
+                }
+            } catch (error) {
+                showNotification("Erreur de connexion", "error");
             }
-        } catch (error) {
-            showNotification("Erreur de connexion", "error");
         }
-    }
 
-    function showInfo() { document.getElementById('info-modal').style.display = 'block'; }
-    function closeInfo() { document.getElementById('info-modal').style.display = 'none'; }
+        function showInfo() { document.getElementById('info-modal').style.display = 'block'; }
+        function closeInfo() { document.getElementById('info-modal').style.display = 'none'; }
 
-    showQuestion();
+        showQuestion();
     </script>
 </body>
+
 </html>
