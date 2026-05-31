@@ -305,8 +305,13 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 1.5rem;">
                         <!-- Sound 1 -->
                         <div style="background: #f8fafc; padding: 1.2rem; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                            <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">⛈️ Pluie et orage</h4>
-                            <audio controls style="width: 100%;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">⛈️ Pluie et orage</h4>
+                                <button onclick="toggleLoop('audio-rain', this)" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap;">
+                                    🔁 Boucle : Non
+                                </button>
+                            </div>
+                            <audio id="audio-rain" controls style="width: 100%;">
                                 <source src="5 Minutes of Rain and Thunderstorm Sounds For Focus, Relaxing and Sleep ⛈️ Epidemic ASMR.mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas la lecture audio.
                             </audio>
@@ -314,8 +319,13 @@
                         
                         <!-- Sound 2 -->
                         <div style="background: #f8fafc; padding: 1.2rem; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                            <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🐦 Chant des oiseaux</h4>
-                            <audio controls style="width: 100%;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🐦 Chant des oiseaux</h4>
+                                <button onclick="toggleLoop('audio-birds', this)" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap;">
+                                    🔁 Boucle : Non
+                                </button>
+                            </div>
+                            <audio id="audio-birds" controls style="width: 100%;">
                                 <source src="Bird sounds- 5 minutes.mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas la lecture audio.
                             </audio>
@@ -323,8 +333,13 @@
                         
                         <!-- Sound 3 -->
                         <div style="background: #f8fafc; padding: 1.2rem; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                            <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🌬️ Bruit du vent</h4>
-                            <audio controls style="width: 100%;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🌬️ Bruit du vent</h4>
+                                <button onclick="toggleLoop('audio-wind', this)" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap;">
+                                    🔁 Boucle : Non
+                                </button>
+                            </div>
+                            <audio id="audio-wind" controls style="width: 100%;">
                                 <source src="Bruit du vent pour la méditation ou votre repos - 5 minutes à vous [4K].mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas la lecture audio.
                             </audio>
@@ -332,8 +347,13 @@
                         
                         <!-- Sound 4 -->
                         <div style="background: #f8fafc; padding: 1.2rem; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                            <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🌊 Cohérence cardiaque - Mer</h4>
-                            <audio controls style="width: 100%;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                                <h4 style="margin: 0; font-size: 1rem; color: #0077b6; font-weight: 800;">🌊 Mer</h4>
+                                <button onclick="toggleLoop('audio-sea', this)" style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap;">
+                                    🔁 Boucle : Non
+                                </button>
+                            </div>
+                            <audio id="audio-sea" controls style="width: 100%;">
                                 <source src="Cohérence cardiaque bruit de la mer [5 min].mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas la lecture audio.
                             </audio>
@@ -528,6 +548,23 @@
                 toast.style.transform = 'translateX(120%)';
                 setTimeout(() => toast.remove(), 400);
             }, 4000);
+        }
+
+        function toggleLoop(audioId, btn) {
+            const audio = document.getElementById(audioId);
+            if (!audio) return;
+            audio.loop = !audio.loop;
+            if (audio.loop) {
+                btn.style.background = '#0077b6';
+                btn.style.color = '#ffffff';
+                btn.style.borderColor = '#0077b6';
+                btn.innerHTML = '🔁 Boucle : Oui';
+            } else {
+                btn.style.background = '#f1f5f9';
+                btn.style.color = '#475569';
+                btn.style.borderColor = '#cbd5e1';
+                btn.innerHTML = '🔁 Boucle : Non';
+            }
         }
 
         initPage();
